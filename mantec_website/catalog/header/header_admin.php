@@ -91,49 +91,6 @@
           </li>
 
           <li class="profile-dropdown-list-item">
-            <a href="admin/index.php?page=about">
-              <i class="fa-regular fa-user"></i>
-              Edit Profile
-            </a>
-          </li>
-
-          <li class="profile-dropdown-list-item">
-            <a href="admin/index.php?page=product&function=add">
-              <i class="fa-regular fa-user"></i>
-              Upload
-            </a>
-          </li>
-
-          <li class="profile-dropdown-list-item">
-            <a href="#">
-              <i class="fa-regular fa-envelope"></i>
-              Inbox
-            </a>
-          </li>
-
-          <li class="profile-dropdown-list-item">
-            <a href="#">
-              <i class="fa-solid fa-chart-line"></i>
-              Analytics
-            </a>
-          </li>
-
-          <li class="profile-dropdown-list-item">
-            <a href="/./././admin/index.php">
-              <i class="fa-solid fa-sliders"></i>
-              Settings
-            </a>
-          </li>
-
-          <li class="profile-dropdown-list-item">
-            <a href="#">
-              <i class="fa-regular fa-circle-question"></i>
-              Help & Support
-            </a>
-          </li>
-          <hr />
-
-          <li class="profile-dropdown-list-item">
             <a href="index.php?logout='1'">
               <i class="fa-solid fa-arrow-right-from-bracket"></i>
               Log out

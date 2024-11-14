@@ -1,8 +1,7 @@
 <?php include('../connection/connect.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
-<?php include('include/head.php'); ?>
-
+    <?php include('include/head.php'); ?>
 <body class="app">
     <?php include('include/header.php'); ?>
     <?php include('include/script.php'); ?>
@@ -16,6 +15,15 @@
                     // about
                 } else if (isset($_GET['page']) && ($_GET['page']) == 'about') {
                     include('about/index.php');
+                    //service
+                } else if (isset($_GET['page']) && ($_GET['page']) == 'service') {
+                    include('service/index.php');
+                    //company
+                } else if (isset($_GET['page']) && ($_GET['page']) == 'company') {
+                    include('company/index.php');
+                    //contact
+                } else if (isset($_GET['page']) && ($_GET['page']) == 'contact') {
+                    include('contact/index.php');
                     // product
                 } else if (isset($_GET['page']) && ($_GET['page']) == 'product') {
                     if (isset($_GET['function']) && $_GET['function'] == 'add') {

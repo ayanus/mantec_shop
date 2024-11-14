@@ -1,5 +1,5 @@
 <?php
-$id = 1;
+$id = $_SESSION['id'];
 $sql = "SELECT * FROM mantec_user WHERE id = '$id'";
 $query = mysqli_query($connection, $sql);
 $result = mysqli_fetch_assoc($query);
@@ -86,11 +86,14 @@ if (isset($_POST) && !empty($_POST)) {
 
 <div class="row justify-content-between">
     <div class="col-auto">
-        <h1 class="app-page-title mb-0">หน้าจัดการข้อมูลเกี่ยวกับฉัน</h1>
+        <?php
+            echo 'id = ' . $id;
+        ?>
+        <h1 class="app-page-title mb-0">จัดการข้อมูลส่วนตัว</h1>
     </div>
-    <div class="col-auto">
+    <!-- <div class="col-auto">
         <a href="?page=admin" class="btn app-btn-secondary">ย้อนกลับ</a>
-    </div>
+    </div> -->
 </div>
 <hr class="mb-4">
 <div class="row g-4 settings-section">
