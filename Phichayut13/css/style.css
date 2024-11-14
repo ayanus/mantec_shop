@@ -1,0 +1,17 @@
+@charset "utf-8";
+
+body{
+	font-size: 120%;
+	background: #B8DEDF;
+}
+.header{
+	width: 100%;
+	margin: 50 auto 0px 0px;
+	color: white;
+	background: #5f9ea0;
+	text-align: center;
+	border: 1px solid #b0c4de;
+	border-bottom: none;
+	border-radius: 10px 10px 0px 0px;
+	padding: 20px;
+}
