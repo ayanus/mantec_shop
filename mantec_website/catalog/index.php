@@ -57,11 +57,12 @@ if (isset($_GET['logout'])) {
 
   <main>
     <div class="container">
-      <div class="sidebar">
-        <a onclick="searchproduct('all')" class="sidebar-items">สินค้าทั้งหมด</a>
+      <!-- <div class="sidebar"> -->
+        <!-- <a onclick="searchproduct('all')" class="sidebar-items">สินค้าทั้งหมด</a> -->
         <!-- <a onclick="searchproduct('cpu')" class="sidebar-items">cpu</a>
         <a onclick="searchproduct('printer')" class="sidebar-items">printer</a> -->
-      </div>
+      <!-- </div> -->
+
       <div id="productlist" class="product"></div>
 
     </div>

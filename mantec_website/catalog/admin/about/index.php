@@ -3,12 +3,7 @@ $id = $_SESSION['id'];
 $sql = "SELECT * FROM mantec_user WHERE id = '$id'";
 $query = mysqli_query($connection, $sql);
 $result = mysqli_fetch_assoc($query);
-// print_r($_POST);
 if (isset($_POST) && !empty($_POST)) {
-    // echo '<pre>';
-    // print_r($_POST);
-    // echo '</pre>';
-    // exit();
     $user = $_POST['username'];
     $name = $_POST['name'];
     $description = $_POST['description'];

@@ -74,9 +74,9 @@
        <!-- user profile -->
        <div class="profile-dropdown">
          <div onclick="toggle()" class="profile-dropdown-btn">
-           <div class="profile-img">
+           <!-- <div class="profile-img">
              <i class="fa-solid fa-circle"></i>
-           </div>
+           </div> -->
 
            <span>
              <?php echo $_SESSION['username']; ?>
@@ -122,10 +122,13 @@
          <li>หน้าแรก</li>
        </a>
        <a href="index.php">
-         <li>กิจกรรม</li>
+         <li>สินค้า</li>
        </a>
        <a href="index.php">
-         <li>บริการส่งซ่อม/ส่งเคลม</li>
+         <li>บริการ</li>
+       </a>
+       <a href="index.php">
+         <li>เกี่ยวกับ</li>
        </a>
        <a href="index.php">
          <li>ติดต่อ</li>

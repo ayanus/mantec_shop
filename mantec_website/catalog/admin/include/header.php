@@ -5,12 +5,6 @@
                 <div class="row justify-content-between align-items-center">
 
                     <div class="col-auto">
-                        <a id="sidepanel-toggler" class="sidepanel-toggler d-inline-block d-xl-none" href="#">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img">
-                                <title>Menu</title>
-                                <path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path>
-                            </svg>
-                        </a>
                     </div>
     
                     <div class="app-utilities col-auto">
@@ -20,11 +14,11 @@
                                 <li>
                                     <a class="dropdown-item <?php echo isset($_GET['page']) && ($_GET['page']) == 'about' ? 'active' : '' ?>" href="?page=about">About Me</a>
                                 </li>
-                                <li><a class="dropdown-item" href="../../../../mantec_website/catalog/index_admin.php">User Mode</a></li>
+                                <li><a class="dropdown-item" href="../../catalog/customer/index.php">User Mode</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="../../../../mantec_website/catalog/login.php">Log Out</a></li>
+                                <li><a class="dropdown-item" href="../../../mantec_website/catalog/login.php">Log Out</a></li>
                             </ul>
                         </div>
                     </div>
