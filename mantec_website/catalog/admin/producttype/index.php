@@ -4,7 +4,7 @@ $query = mysqli_query($connection, $sql);
 ?>
 <div class="row justify-content-between">
     <div class="col-auto">
-        <h1 class="app-page-title mb-0">จัดการข้อมูลประเภทสินค้า</h1>
+        <h1 class="app-page-title mb-0">จัดการประเภทสินค้า</h1>
     </div>
     <div class="col-auto">
 

@@ -92,7 +92,7 @@ if (isset($_POST) && !empty($_POST)) {
         <h1 class="app-page-title mb-0">เพิ่มข้อมูลผู้ดูแลระบบ</h1>
     </div>
     <div class="col-auto">
-        <a href="?page=admin" class="btn app-btn-secondary">ย้อนกลับ</a>
+        <a href="?page=producttype" class="btn app-btn-secondary">ย้อนกลับ</a>
     </div>
 </div>
 <hr class="mb-4">

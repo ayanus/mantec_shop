@@ -1,47 +1,48 @@
 <div class="container-xl">
     <ul class="nav justify-content-center">
         <li class="nav-item">
-            <a class="nav-link text-dark" aria-current="page" href="#">Home</a>
+          <a class="nav-link text-dark<?php echo isset($_GET['page']) && ($_GET['page']) == 'home' ? 'active' : '' ?>" href="?page=home">
+          Home</a>
         </li>
 
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Product
-          </a>
+          <a class="nav-link dropdown-toggle text-dark <?php echo isset($_GET['page']) && ($_GET['page']) == 'product' ? 'active' : '' ?>" href="?page=product" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Product</a>
           <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" href="?page=product&type=all">All Product</a>
+            </li>
+
             <?php
                 $sql="SELECT * FROM tb_type_product ORDER BY id";
                 $hand=mysqli_query($connection,$sql); //ดึงข้อมูล database
                 while($row=mysqli_fetch_array($hand)){
             ?>
-                <li><a class="dropdown-item" href="#"><?=$row['title']?></a></li>                
+              <li>
+                <a class="dropdown-item" href="?page=product&type=<?= htmlspecialchars($row['title']); ?>">
+                  <?= htmlspecialchars($row['title']); ?>
+                </a>
+              </li>               
             <?php 
                 } 
             ?>
+            
           </ul>
         </li>
 
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Service
-          </a>
-          <ul class="dropdown-menu">
-            <?php
-                
-            ?>
-                <li><a class="dropdown-item" href="#"></a></li>                
-            <?php 
-                 
-            ?>
-          </ul>
+          <a class="nav-link text-dark<?php echo isset($_GET['page']) && ($_GET['page']) == 'service' ? 'active' : '' ?>" href="?page=service">
+          Service</a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link text-dark" href="#">about</a>
+            <a class="nav-link text-dark<?php echo isset($_GET['page']) && ($_GET['page']) == 'about' ? 'active' : '' ?>" href="?page=about">
+            about</a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link text-dark" href="#">contact</a>
+          <a class="nav-link text-dark<?php echo isset($_GET['page']) && ($_GET['page']) == 'contact' ? 'active' : '' ?>" href="?page=contact">
+            contact</a>
         </li>
         
     </ul>

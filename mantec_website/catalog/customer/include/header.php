@@ -18,7 +18,9 @@
           </a>
           <ul class="dropdown-menu text-small">
             <li><a class="dropdown-item" href="#">Profile</a></li>
-            <li><a class="dropdown-item" href="../../catalog/admin/index.php">Admin Mode</a></li>
+            <?php if ($_SESSION['userlevel'] == 'a') { ?>
+              <li><a class="dropdown-item" href="../../catalog/admin/index.php">Admin Mode</a></li>
+            <?php } ?>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="../../../mantec_website/catalog/login.php">Sign out</a></li>
           </ul>

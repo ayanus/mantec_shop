@@ -42,10 +42,10 @@ if (isset($_POST['login_user'])) {
 
             // ตรวจสอบระดับผู้ใช้
             if ($row['userlevel'] == 'a') {
-                header("Location: index_admin.php");
+                header("Location: admin/index.php");
                 // $_SESSION['admin'] = include('header/header_admin.php');
             } elseif ($row['userlevel'] == 'm') {
-                header("Location: index.php");
+                header("Location: customer/index.php");
                 // $_SESSION['user'] = include('header/header_user.php');
             }
             exit();

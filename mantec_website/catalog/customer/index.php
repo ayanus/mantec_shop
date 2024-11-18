@@ -11,7 +11,30 @@
     <?php include('include/menu.php'); ?>
     <div class="app-content pt-3 p-md-3 p-lg-4">
         <div class="container-xl">
-            
+            <?php
+            $rows = null; // กำหนดค่าเริ่มต้น
+            if (!isset($_GET['page']) || $_GET['page'] == 'home'){
+                include('dashboard/index.php');
+            } else if (isset($_GET['page']) && ($_GET['page']) == 'about') {
+                include('about/index.php');
+            } else if (isset($_GET['page']) && ($_GET['page']) == 'contact') {
+                include('contact/index.php');
+            } else if (isset($_GET['page']) && ($_GET['page']) == 'product') {
+                include('product/index.php');
+                if (isset($_GET['type']) && $_GET['type'] == 'All Product') {
+                    $sql = "SELECT * FROM sp_product";
+                } else {
+                    $type = mysqli_real_escape_string($connection, $_GET['type']);
+                    $sql = "SELECT * FROM sp_product WHERE type = '$type'";
+                }
+                $rows = mysqli_query($connection, $sql);
+
+                // ตรวจสอบผลลัพธ์จาก mysqli_query
+                if (!$rows) {
+                    die('Error in query: ' . mysqli_error($connection)); // แสดงข้อความข้อผิดพลาดของ SQL
+                }
+            }
+            ?>
         </div>
     </div>
 
