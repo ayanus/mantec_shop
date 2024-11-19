@@ -15,7 +15,7 @@
                         <a href="cart.php?id=<?php echo $product['id']?>" class="btn btn-primary mt-2 w-100">เพิ่มลงตะกร้า</a>
                     </div>
                 </div>
-            </div>
+            </div> 
         <?php endwhile; ?>
     <?php else: ?>
         <p class="text-center text-muted">ไม่มีสินค้าตามประเภทที่เลือก</p>

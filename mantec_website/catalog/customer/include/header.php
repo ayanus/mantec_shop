@@ -1,7 +1,7 @@
 <header class="p-3 mb-3 border-bottom">
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
+        <a class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none <?php echo isset($_GET['page']) && ($_GET['page']) == 'home' ? 'active' : '' ?>" href="?page=home">
           <img class="logo-icon me-2" width="70" src="../customer/image/logo.png" alt="logo">
         </a>
 
