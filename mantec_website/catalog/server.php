@@ -2,8 +2,6 @@
     $servername = "localhost";
     $username = "root";
     $password = "";
-
-    
     $dbname = "mantec_shop";
 
     // Create Connection

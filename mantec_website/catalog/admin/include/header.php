@@ -14,7 +14,7 @@
                                 <li>
                                     <a class="dropdown-item <?php echo isset($_GET['page']) && ($_GET['page']) == 'about' ? 'active' : '' ?>" href="?page=about">About Me</a>
                                 </li>
-                                <li><a class="dropdown-item" href="../../catalog/customer/index.php">User Mode</a></li>
+                                <li><a class="dropdown-item" href="../index.php">User Mode</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -124,9 +124,8 @@
                             </ul>
                         </nav>
                     </div>
-
                 </div>
-
             </div>
+        </div>
     </div>
 </header>
