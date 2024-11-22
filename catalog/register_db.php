@@ -5,35 +5,43 @@ include('server.php');
 $errors = array();
 
 if (isset($_POST['reg_user'])) {
+    $firstname = mysqli_real_escape_string($conn, $_POST['firstname']);
+    $lastname = mysqli_real_escape_string($conn, $_POST['lastname']);
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password_1 = mysqli_real_escape_string($conn, $_POST['password_1']);
     $password_2 = mysqli_real_escape_string($conn, $_POST['password_2']);
-    $Phone_number = mysqli_real_escape_string($conn, $_POST['Phone_number']);
-    $address = mysqli_real_escape_string($conn, $_POST['address']);
-    $userlevel = mysqli_real_escape_string($conn, $_POST['userlevel']);
+    $ph_number = mysqli_real_escape_string($conn, $_POST['ph_number']);
 
-    if (empty($username)) {
-        array_push($errors, "จำเป็นต้องใส่ชื่อผู้ใช้");
-        $_SESSION['error'] = "จำเป็นต้องใส่ชื่อผู้ใช้";
+    if (empty($firstname)) {
+        array_push($errors, "กรุณากรอกชื่อ");
+        $_SESSION['error'] = "กรุณากรอกชื่อ";
         header("location: register.php");
-    }
-    if (empty($email)) {
-        array_push($errors, "จำเป็นต้องใส่ Email");
-        $_SESSION['error'] = "จำเป็นต้องใส่ Email";
+    } else if (empty($lastname)) {
+        array_push($errors, "กรุณากรอกนามสกุล");
+        $_SESSION['error'] = "กรุณากรอกนามสกุล";
         header("location: register.php");
-    }
-    if (empty($password_1)) {
-        array_push($errors, "จำเป็นต้องใส่ รหัสผ่าน");
-        $_SESSION['error'] = "จำเป็นต้องใส่ รหัสผ่าน";
+    } else if (empty($email)) {
+        array_push($errors, "กรุณากรอก Email");
+        $_SESSION['error'] = "กรุณากรอก Email";
         header("location: register.php");
-    }
-    if (empty($password_2)) {
-        array_push($errors, "จำเป็นต้องใส่ รหัสผ่าน");
-        $_SESSION['error'] = "จำเป็นต้องใส่ รหัสผ่าน";
+    } else if (empty($ph_number)) {
+        array_push($errors, "กรุณากรอกเบอร์โทร");
+        $_SESSION['error'] = "กรุณากรอกเบอร์โทร";
         header("location: register.php");
-    }
-    if ($password_1 != $password_2) {
+    } else if (empty($username)) {
+        array_push($errors, "กรุณากรอกชื่อผู้ใช้");
+        $_SESSION['error'] = "กรุณากรอกชื่อผู้ใช้";
+        header("location: register.php");
+    } else if (empty($password_1)) {
+        array_push($errors, "กรุณากรอกรหัสผ่าน");
+        $_SESSION['error'] = "กรุณากรอกรหัสผ่าน";
+        header("location: register.php");
+    } else if (empty($password_2)) {
+        array_push($errors, "กรุณายืนยันรหัสผ่าน");
+        $_SESSION['error'] = "กรุณายืนยันรหัสผ่าน";
+        header("location: register.php");
+    } else if ($password_1 != $password_2) {
         array_push($errors, "รหัสผ่านไม่ตรงกัน");
         $_SESSION['error'] = "รหัสผ่านไม่ตรงกัน";
         header("location: register.php");
@@ -64,11 +72,12 @@ if (isset($_POST['reg_user'])) {
     if (count($errors) == 0) {
         $password = md5($password_1);
 
-        $sql = "INSERT INTO mantec_user (username, email, password, ph_number, address, userlevel) VALUES ('$username', '$email', '$password','$Phone_number','$address','m')";
+        $sql = "INSERT INTO mantec_user (firstname, lastname, username, email, password, ph_number, userlevel, address, image) VALUES ('firstname', 'lastname', '$username', '$email', '$password','$ph_number', 'm' , ' ', ' ')";
         mysqli_query($conn, $sql);
 
         $_SESSION['username'] = $username;
-        $_SESSION['success'] = "ตอนนี้คุณได้เข้าสู่ระบบแล้ว";
+        $_SESSION['success'] = "ลงทะเบียนสำเร็จ";
         header('location: login.php');
     }
 }
+

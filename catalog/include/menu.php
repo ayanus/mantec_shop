@@ -6,6 +6,11 @@
         </li>
 
         <li class="nav-item dropdown">
+          <a class="nav-link text-dark<?php echo isset($_GET['page']) && ($_GET['page']) == 'service' ? 'active' : '' ?>" href="?page=service">
+          Service</a>
+        </li>
+
+        <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-dark <?php echo isset($_GET['page']) && ($_GET['page']) == 'product' ? 'active' : '' ?>" href="?page=product" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           Product</a>
           <ul class="dropdown-menu">
@@ -28,11 +33,6 @@
             ?>
             
           </ul>
-        </li>
-
-        <li class="nav-item dropdown">
-          <a class="nav-link text-dark<?php echo isset($_GET['page']) && ($_GET['page']) == 'service' ? 'active' : '' ?>" href="?page=service">
-          Service</a>
         </li>
 
         <li class="nav-item">
