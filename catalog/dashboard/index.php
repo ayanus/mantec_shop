@@ -1,42 +1,72 @@
 <style>
     .img-head {
-        width: 100%; 
-        height: 300px; 
-        overflow: hidden; 
-        position: relative; 
-        /* background-color: black; */
+        width: 100%;
+        height: 50vh;
+        overflow: hidden;
+        position: relative;
     }
 
     .img-head img {
-        width: 120%; 
-        height: auto; 
-        position: absolute; 
-        top: 50%; 
-        left: 50%; 
-        transform: translate(-50%, -50%); /* กำหนดระยะของเนื้อหา */
+        width: 100%; /* ปรับความกว้างให้เข้ากับหน้าจอ */
+        height: 100%;
+        object-fit: cover; /* ปรับขนาดรูปให้เต็มพื้นที่ */
+        position: absolute;
+        top: 0;
+        left: 0;
+        /* transform: translate(-50%, -50%); */
         opacity: 0.6;
         filter: brightness(45%);
     }
 
     .text-head {
-        position: absolute; 
-        top: 50%; 
-        left: 50%; 
-        transform: translate(-50%, -50%); 
-        color: white; 
-        text-align: center; 
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        text-align: center;
         z-index: 1;
+        padding: 10px;
     }
 
-    .text-head h1 {
-        font-size: 50px; 
+    .text-head h5 {
+        font-size: 2.5rem; /* ใช้หน่วย rem เพื่อรองรับ responsive */
         font-weight: bold;
-        margin: 20px;
+        margin: 10px;
     }
 
     .text-head p {
-        font-size: 18px; 
-        /* margin-top: 20px; */
+        font-size: 1rem;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+        .img-head {
+            height: 40vh;
+        }
+
+        .text-head h5 {
+            font-size: 2rem;
+        }
+
+        .text-head p {
+            font-size: 0.9rem;
+        }
+
+    }
+
+    @media (max-width: 480px) {
+        .img-head {
+            height: 50vh;
+        }
+
+        .text-head h5 {
+            font-size: 1.5rem;
+        }
+
+        .text-head p {
+            font-size: 0.8rem;
+        }
     }
 
     .main {
@@ -82,9 +112,8 @@
 <body>
     <div class="img-head">
         <div class="text-head">
-            <h1>88 COMTECH IT</h1>
-            <p>คอมพิวเตอร์เสีย เปิดไม่ติด ภาพไม่ขึ้นจอ จอฟ้า แบตเตอรี่เสื่อม Keyborad ใช้งานไม่ได้ <br> 
-            ลง Driver ไม่ได้ เครื่องปริ๊นท์ภาพไม่ชัด </p>
+            <h5>88 COMTECH IT</h5>
+            <p>มุ่งมั่นพัฒนาทักษะการบริการสู่มาตราฐานสากล และจัดหาแหล่งอะไหล่คุณภาพดี ราคาเหมาะสม</p>
         </div>
         <img src="https://www.computersmobile.com.au/wp-content/uploads/2016/11/shop.jpg" alt="logo">
     </div>
