@@ -72,7 +72,7 @@
 <body>
     <div class="img-head">
         <div class="text-head">
-            <h1>CONTACT US</h1>
+            <h5>CONTACT US</h5>
             <p>คอมพิวเตอร์เสีย เปิดไม่ติด ภาพไม่ขึ้นจอ จอฟ้า แบตเตอรี่เสื่อม Keyborad ใช้งานไม่ได้ ลง Driver ไม่ได้ เครื่องปริ๊นท์ภาพไม่ชัด </p>
         </div>
         <img src="https://i.pinimg.com/736x/5f/72/3e/5f723ea239423933d07740830d174011.jpg" alt="logo">
