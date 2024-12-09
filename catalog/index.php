@@ -31,6 +31,8 @@
                 include('about/index.php');
             } else if (isset($_GET['page']) && ($_GET['page']) == 'contact') {
                 include('contact/index.php');
+            } else if (isset($_GET['page']) && ($_GET['page']) == 'service') {
+                include('service/index.php');
             } else if (isset($_GET['page']) && ($_GET['page']) == 'product') {
                 include('product/index.php');
                 if (isset($_GET['type']) && $_GET['type'] == 'All Product') {

@@ -23,7 +23,7 @@ include('server.php');
         box-sizing: border-box;
     }
     body {
-        background-color: #A9DCF4;
+        /* background-color: #A9DCF4; */
         height: auto;
         display: flex;
         /* align-items: center; */
@@ -40,7 +40,7 @@ include('server.php');
         margin: auto;
         background-color: #fff;
         border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     }
 </style>
 

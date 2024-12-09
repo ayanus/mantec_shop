@@ -80,7 +80,6 @@
     <div class="container">
         <div class="head text-center my-5">
             <h2 class="fw-bold">ติดต่อเรา</h2>
-            <p>computer service</p>
         </div>
 
         <div class="maps d-flex justify-content-center mb-5">
