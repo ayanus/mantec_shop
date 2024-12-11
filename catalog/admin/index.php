@@ -46,6 +46,17 @@
                     } else {
                         include('producttype/index.php');
                     }
+                    // brand
+                } else if (isset($_GET['page']) && ($_GET['page']) == 'brand') {
+                    if (isset($_GET['function']) && $_GET['function'] == 'add') {
+                        include('brand/insert.php');
+                    } elseif (isset($_GET['function']) && $_GET['function'] == 'update') {
+                        include('brand/edit.php');
+                    } elseif (isset($_GET['function']) && $_GET['function'] == 'delete') {
+                        include('brand/delete.php');
+                    } else {
+                        include('brand/index.php');
+                    }
                     // admin
                 } else if (isset($_GET['page']) && ($_GET['page']) == 'admin') {
                     if (isset($_GET['function']) && $_GET['function'] == 'add') {

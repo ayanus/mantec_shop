@@ -1,5 +1,5 @@
 <?php
-$sql = "SELECT * FROM product_type";
+$sql = "SELECT * FROM brand";
 $query = mysqli_query($connection, $sql);
 ?>
 <div class="row justify-content-between">
@@ -32,12 +32,12 @@ $query = mysqli_query($connection, $sql);
                         ?>
                             <tr>
                                 <td class="align-middle text-center"><?= $i++ ?></td>
-                                <td class="align-middle"><?= $data['type_name'] ?></td>
+                                <td class="align-middle"><?= $data['brand_name'] ?></td>
                                 <td class="align-middle">
-                                    <a href="?page=<?= $_GET['page'] ?>&function=update&id=<?= $data['type_id'] ?>"
+                                    <a href="?page=<?= $_GET['page'] ?>&function=update&id=<?= $data['brand_id'] ?>"
                                         class="btn btn-sm btn-warning">แก้ไข</a>
-                                    <a href="?page=<?= $_GET['page'] ?>&function=delete&id=<?= $data['type_id'] ?>"
-                                        onclick="return confirm('คุณต้องการลบ ชื่อประเภทสินค้า : <?= $data['type_name'] ?> หรือไม่')"
+                                    <a href="?page=<?= $_GET['page'] ?>&function=delete&id=<?= $data['brand_id'] ?>"
+                                        onclick="return confirm('คุณต้องการลบ ชื่อประเภทสินค้า : <?= $data['brand_name'] ?> หรือไม่')"
                                         class="btn btn-sm btn-danger">ลบ</a>
                                 </td>
                             </tr>
