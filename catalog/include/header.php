@@ -21,7 +21,7 @@
               <ul class="dropdown-menu text-small">
                 <li><a class="dropdown-item" href="#">Profile</a></li>
 
-                <?php if ($_SESSION['userlevel'] == 'a') { ?>
+                <?php if ($_SESSION['role'] == 'a') { ?>
                   <li><a class="dropdown-item" href="admin/index.php">Admin Mode</a></li>
                 <?php } ?>
 

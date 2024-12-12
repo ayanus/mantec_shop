@@ -34,9 +34,9 @@ $query = mysqli_query($connection, $sql);
                                 <td class="align-middle text-center"><?= $i++ ?></td>
                                 <td class="align-middle"><?= $data['brand_name'] ?></td>
                                 <td class="align-middle">
-                                    <a href="?page=<?= $_GET['page'] ?>&function=update&id=<?= $data['brand_id'] ?>"
+                                    <a href="?page=<?= $_GET['page'] ?>&function=update&brand_id=<?= $data['brand_id'] ?>"
                                         class="btn btn-sm btn-warning">แก้ไข</a>
-                                    <a href="?page=<?= $_GET['page'] ?>&function=delete&id=<?= $data['brand_id'] ?>"
+                                    <a href="?page=<?= $_GET['page'] ?>&function=delete&brand_id=<?= $data['brand_id'] ?>"
                                         onclick="return confirm('คุณต้องการลบ ชื่อประเภทสินค้า : <?= $data['brand_name'] ?> หรือไม่')"
                                         class="btn btn-sm btn-danger">ลบ</a>
                                 </td>

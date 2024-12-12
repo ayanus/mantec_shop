@@ -103,7 +103,7 @@ include('server.php');
                             </svg>
                         </span>
                         <div class="form-floating">
-                            <input type="tel" name="ph_number" class="form-control" id="floatingInputGroup1" placeholder="เบอร์โทร">
+                            <input type="tel" name="tel" class="form-control" id="floatingInputGroup1" placeholder="เบอร์โทร">
                             <label for="floatingInputGroup1">เบอร์โทร</label>
                         </div>
                     </div>

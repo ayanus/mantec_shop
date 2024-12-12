@@ -1,7 +1,7 @@
 <?php
-if (isset($_GET['type_id']) && !empty($_GET['type_id'])) {
-    $type_id = $_GET['type_id'];
-    $sql = "DELETE FROM product_type WHERE type_id = '$type_id'";
+if (isset($_GET['brand_id']) && !empty($_GET['brand_id'])) {
+    $brand_id = $_GET['brand_id'];
+    $sql = "DELETE FROM brand WHERE brand_id = '$brand_id'";
 
     if (mysqli_query($connection, $sql)) {
         $alert = '<script type="text/javascript">';

@@ -100,16 +100,18 @@
             $rows = mysqli_num_rows($query);
         ?>
 
-        <div class="row row-cols-md-4 g-4 mb-5 ">
+        <div class="row row-cols-1 row-cols-md-4 g-4 mb-5 ">
             <?php if ($rows > 0): ?> <!-- ตรวจสอบว่ามีแถวข้อมูล -->
                 <?php while($product = mysqli_fetch_assoc($query)): ?> <!-- ใช้ $rows ที่กำหนดจาก query -->
                     <div class="col">
                         <div class="card">
+                        <div class="ratio ratio-1x1">
                             <?php if(!empty($product['img'])): ?>
                                 <img src="admin/upload/product/<?php echo $product['img']?>" class="card-img-top" alt="Product image">
                             <?php else: ?>
                                 <img src="https://static.vecteezy.com/system/resources/thumbnails/022/059/000/small_2x/no-image-available-icon-vector.jpg" class="card-img-top" alt="...">
                             <?php endif; ?>
+                        </div>
                             <div class="card-body">
                                 <h5 class="card-title"><?= $product['name'] ?></h5>
                                 <p class="card-text text-muted"><?= $product['description'] ?></p>

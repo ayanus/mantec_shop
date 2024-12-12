@@ -7,11 +7,14 @@ $errors = array();
 if (isset($_POST['reg_user'])) {
     $firstname = mysqli_real_escape_string($conn, $_POST['firstname']);
     $lastname = mysqli_real_escape_string($conn, $_POST['lastname']);
+
+    $fullname = $firstname . ' ' . $lastname;
+
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password_1 = mysqli_real_escape_string($conn, $_POST['password_1']);
     $password_2 = mysqli_real_escape_string($conn, $_POST['password_2']);
-    $ph_number = mysqli_real_escape_string($conn, $_POST['ph_number']);
+    $tel = mysqli_real_escape_string($conn, $_POST['tel']);
 
     if (empty($firstname)) {
         array_push($errors, "กรุณากรอกชื่อ");
@@ -25,7 +28,7 @@ if (isset($_POST['reg_user'])) {
         array_push($errors, "กรุณากรอก Email");
         $_SESSION['error'] = "กรุณากรอก Email";
         header("location: register.php");
-    } else if (empty($ph_number)) {
+    } else if (empty($tel)) {
         array_push($errors, "กรุณากรอกเบอร์โทร");
         $_SESSION['error'] = "กรุณากรอกเบอร์โทร";
         header("location: register.php");
@@ -52,7 +55,7 @@ if (isset($_POST['reg_user'])) {
     //     header("location: register.php");
     // }
 
-    $user_check_query = "SELECT * FROM mantec_user WHERE username = '$username' OR email ='$email'";
+    $user_check_query = "SELECT * FROM user WHERE username = '$username' OR email ='$email'";
     $query = mysqli_query($conn, $user_check_query);
     $result = mysqli_fetch_assoc($query);
 
@@ -72,7 +75,7 @@ if (isset($_POST['reg_user'])) {
     if (count($errors) == 0) {
         $password = md5($password_1);
 
-        $sql = "INSERT INTO mantec_user (firstname, lastname, username, email, password, ph_number, userlevel, address, image) VALUES ('firstname', 'lastname', '$username', '$email', '$password','$ph_number', 'm' , ' ', ' ')";
+        $sql = "INSERT INTO user (fullname , username, email, password, tel, role) VALUES ('$fullname', '$username', '$email', '$password','$tel', 'c')";
         mysqli_query($conn, $sql);
 
         $_SESSION['username'] = $username;

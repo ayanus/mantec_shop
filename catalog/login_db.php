@@ -25,34 +25,38 @@ if (isset($_POST['login_user'])) {
     }
 
     // ตรวจสอบการเข้าสู่ระบบถ้าไม่มีข้อผิดพลาด
-    if (count($errors) == 0) {
+    if (!empty($username) && !empty($password)) {
         $password = md5($password);
-        $query = "SELECT * FROM mantec_user WHERE username = '$username' AND password = '$password' ";
+        $query = "SELECT * FROM user WHERE username = '$username' AND password = '$password' ";
         $result = mysqli_query($conn, $query);
 
-        if (mysqli_num_rows($result) == 1) {
+        if (mysqli_num_rows($result) > 0) {
             $row = mysqli_fetch_assoc($result);
 
             // เก็บข้อมูลลงใน Session
             $_SESSION['username'] = $row['username'];
-            $_SESSION['userlevel'] = $row['userlevel'];
-            $_SESSION['success'] = "ล็อกอินเรียบร้อย";
-
+            $_SESSION['role'] = $row['role'];
             $_SESSION['login_attempts'] = 0;
 
             // ตรวจสอบระดับผู้ใช้
-            if ($row['userlevel'] == 'a') {
+            if ($row['role'] == 'a') {
                 header("Location: admin/index.php");
                 // $_SESSION['admin'] = include('header/header_admin.php');
-            } elseif ($row['userlevel'] == 'm') {
+            } elseif ($row['role'] == 'c') {
                 header("Location: index.php");
                 // $_SESSION['user'] = include('header/header_user.php');
             }
             exit();
         } else {
-            // หากชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง
-            array_push($errors);
-            $_SESSION['error'] = "Username หรือ Password ไม่ถูกต้อง";
+            // ตรวจสอบว่ามีผู้ใช้ในฐานข้อมูลหรือไม่
+            $check_user_query = "SELECT * FROM user WHERE username = '$username'";
+            $check_user_result = mysqli_query($conn, $check_user_query);
+
+            if (mysqli_num_rows($check_user_result) == 0) {
+                $_SESSION['error'] = "ยังไม่มีบัญชีใช่หรือไม่? โปรดลงทะเบียนก่อนเข้าสู่ระบบ";
+            } else {
+                $_SESSION['error'] = "Username หรือ Password ไม่ถูกต้อง";
+            }
             header("location: login.php");
             exit();
         }

@@ -107,6 +107,12 @@
         height: 80px;
         background-color: black;
     }
+
+    .container-custom {
+        padding-left: 150px;
+        padding-right: 150px;
+    }
+
 </style>
 
 <body>
@@ -148,27 +154,37 @@
          <!-- สินค้าไม่แสดง -->
         <div class="product pt-3 pb-5">
             <h1 class="text-center">PRODUCT</h1>
-            <div class="row">
-                <?php if($row > 0): ?>
-                    <?php while($product = mysqli_fetch_assoc($query)): ?>
-                    <div class="col-3">
-                        <div class="card" style="width: 18rem;">
-                        <?php if(!empty($product['img'])): ?>
-                                <img src="imgs/<?= $product['img']; ?>" width="100">
-                            <?php else: ?>
-                                <img src="imgs/no-image.jpg"  width="100">
-                            <?php endif; ?>
 
-                            <div class="card-body">
-                                <h5 class="card-title"><?php echo $product['name']; ?></h5>
-                                <p class="card-text text-muted"><?php echo nl2br($product['description']); ?></p>
-                                <p class="card-text text-danger"><?php echo number_format($product['price'],2); ?></p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-                    <?php endwhile; ?>
-                <?php endif; ?>
+            <?php
+                $query =  mysqli_query($connection, "SELECT * FROM sp_product WHERE id IN (SELECT MIN(id)FROM sp_product GROUP BY type)");
+                $rows = mysqli_num_rows($query);
+            ?>
+            <div class="container container-custom">
+                <div class="row row-cols-1 row-cols-md-4 g-4">
+                    <?php if ($rows > 0): ?> <!-- ตรวจสอบว่ามีแถวข้อมูล -->
+                        <?php while($product = mysqli_fetch_assoc($query)): ?> <!-- ใช้ $rows ที่กำหนดจาก query -->
+                            <div class="col">
+                                <div class="card ">
+                                <div class="ratio ratio-1x1">
+                                    <?php if(!empty($product['img'])): ?>
+                                        <img src="admin/upload/product/<?php echo $product['img']?>" class="card-img-top" alt="Product image">
+                                    <?php else: ?>
+                                        <img src="https://static.vecteezy.com/system/resources/thumbnails/022/059/000/small_2x/no-image-available-icon-vector.jpg" class="card-img-top" alt="...">
+                                    <?php endif; ?>
+                                </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title"><?= $product['name'] ?></h5>
+                                        <p class="card-text text-muted"><?= $product['description'] ?></p>
+                                        <p class="card-text text-danger mb-0 fw-bold">฿ <?= $product['price'] ?></p>
+                                        <a href="cart.php?id=<?php echo $product['id']?>" class="btn btn-danger mt-2">เพิ่มลงตะกร้า</a>
+                                    </div>
+                                </div>
+                            </div> 
+                        <?php endwhile; ?>
+                    <?php else: ?>
+                        <p class="text-center text-muted">ไม่มีสินค้าตามประเภทที่เลือก</p>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
 

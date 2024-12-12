@@ -1,10 +1,10 @@
 <?php
-$sql = "SELECT * FROM mantec_user";
+$sql = "SELECT * FROM user WHERE role = 'c'";
 $query = mysqli_query($connection, $sql);
 ?>
 <div class="row justify-content-between">
     <div class="col-auto">
-        <h1 class="app-page-title mb-0">ตารางข้อมูลผู้ดูแลระบบ</h1>
+        <h1 class="app-page-title mb-0">ข้อมูลผู้ใช้งานระบบ</h1>
     </div>
     <div class="col-auto">
 
@@ -20,7 +20,6 @@ $query = mysqli_query($connection, $sql);
                 <table class="table table-hover" id="tableall">
                     <thead class="text-center">
                         <tr>
-                            <th scope="col" class="text-center">รูปภาพ</th>
                             <th scope="col" class="text-center">ชื่อผู้ใช้</th>
                             <th scope="col" class="text-center">ชื่อ - นามสกุล</th>
                             <th scope="col" class="text-center">อีเมล</th>
@@ -32,23 +31,20 @@ $query = mysqli_query($connection, $sql);
                     <tbody class="text-center">
                         <?php foreach ($query as $data): ?>
                             <tr>
-                                <td class="align-middle">
-                                    <img src="upload/admin/<?= $data['image'] ?>" class="rounded" width="75" height="75">
-                                </td>
                                 <td class="align-middle"><?= $data['username'] ?></td>
-                                <td class="align-middle"><?= $data['firstname'] . ' ' . $data['lastname'] ?></td>
+                                <td class="align-middle"><?= $data['fullname'] ?></td>
                                 <td class="align-middle"><?= $data['email'] ?></td>
-                                <td class="align-middle"><?= $data['ph_number'] ?></td>
-                                <td class="align-middle"><?= $data['userlevel'] ?></td>
+                                <td class="align-middle"><?= $data['tel'] ?></td>
+                                <td class="align-middle"><?= $data['role'] ?></td>
                                 <!-- <td class="align-middle">
                                     <php $data['status'] == 0 ? -->
                                         <!-- '<span class="text-success">เปิดใช้งาน</span>' 
                                         : '<span class="text-danger">ปิดใช้งาน' > -->
                                 </td> 
                                 <td class="align-middle">
-                                    <a href="?page=<?= $_GET['page'] ?>&function=update&id=<?= $data['id'] ?>"
+                                    <a href="?page=<?= $_GET['page'] ?>&function=update&user_id=<?= $data['user_id'] ?>"
                                         class="btn btn-sm btn-warning">แก้ไข</a>
-                                    <a href="?page=<?= $_GET['page'] ?>&function=delete&id=<?= $data['id'] ?>"
+                                    <a href="?page=<?= $_GET['page'] ?>&function=delete&user_id=<?= $data['user_id'] ?>"
                                         onclick="return confirm('คุณต้องการลบชื่อผู้ใช้ : <?= $data['username'] ?> หรือไม่')"
                                         class="btn btn-sm btn-danger">ลบ</a>
                                 </td>

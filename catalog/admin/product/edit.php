@@ -5,12 +5,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     $query = mysqli_query($connection, $sql);
     $result = mysqli_fetch_assoc($query);
 }
-// print_r($_POST);
 if (isset($_POST) && !empty($_POST)) {
-    // echo '<pre>';
-    // print_r($_FILES);
-    // echo '</pre>';
-    // exit();
     $type_product_id = $_POST['type_product_id'];
     $title = $_POST['title'];
     $detail = $_POST['detail'];
