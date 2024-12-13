@@ -1,43 +1,60 @@
 <?php
 if (isset($_GET['brand_id']) && !empty($_GET['brand_id'])) {
-    $brand_id = $_GET['brand_id'];
-    $sql = "SELECT * FROM brand WHERE brand_id = '$brand_id'";
-    $query = mysqli_query($connection, $sql);
-    $result = mysqli_fetch_assoc($query);
-} if (isset($_POST) && !empty($_POST)) {
+    $brand_id = intval($_GET['brand_id']); // แปลงเป็นตัวเลขเพื่อความปลอดภัย
+    $stmt = $connection->prepare("SELECT * FROM brand WHERE brand_id = ?");
+    $stmt->bind_param("i", $brand_id);
+    $stmt->execute();
+    $result = $stmt->get_result()->fetch_assoc();
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $img = $_POST['img'];
     $brand_name = $_POST['brand_name'];
+    $filename = $old_img;
+
+    if (!empty($_FILES['img']['name'])) {
+        $extension = ["jpeg", "jpg", "png", "gif"];
+        $target = 'upload/brand/';
+        $filename = uniqid() . '.' . pathinfo($_FILES['img']['name'], PATHINFO_EXTENSION);
+
+        if (in_array(pathinfo($_FILES['img']['name'], PATHINFO_EXTENSION), $extension)) {
+            if (move_uploaded_file($_FILES['img']['tmp_name'], $target . $filename)) {
+                if ($old_img && file_exists($target . $old_img)) {
+                    unlink($target . $old_img); // ลบรูปเก่า
+                }
+            } else {
+                echo "<script>alert('เพิ่มไฟล์เข้า folder ไม่สำเร็จ');</script>";
+                exit();
+            }
+        } else {
+            echo "<script>alert('ประเภทไฟล์ไม่ถูกต้อง');</script>";
+            exit();
+        }
+    }
+
     if (!empty($brand_name)) {
-        $sql_check = "SELECT * FROM brand WHERE brand_name = '$brand_name' AND brand_id != '$brand_id'";
-        $query_check = mysqli_query($connection, $sql_check);
-        $row_check = mysqli_num_rows($query_check);
+        $stmt = $connection->prepare("SELECT * FROM brand WHERE brand_name = ? AND brand_id != ?");
+        $stmt->bind_param("si", $brand_name, $brand_id);
+        $stmt->execute();
+        $row_check = $stmt->get_result()->num_rows;
+
         if ($row_check > 0) {
-            $alert = '<script type="text/javascript">';
-            $alert .= 'alert("ชื่อประเภทสินค้าซ้ำ กรุณากรอกใหม่อีกครั้ง");';
-            $alert .= 'window.location.href = "?page=' . $_GET['page'] . '&function=update&brand_id=' . $id . '";';
-            $alert .= '</script>';
-            echo $alert;
+            echo "<script>alert('ชื่อประเภทสินค้าซ้ำ กรุณากรอกใหม่อีกครั้ง');</script>";
             exit();
         } else {
-            $sql = "UPDATE brand SET 
-            brand_name = '$brand_name'
-            WHERE brand_id = '$brand_id'";
+            $stmt = $connection->prepare("UPDATE brand SET brand_name = ?, brand_img = ? WHERE brand_id = ?");
+            $stmt->bind_param("ssi", $brand_name, $filename, $brand_id);
 
-            if (mysqli_query($connection, $sql)) {
-                $alert = '<script type="text/javascript">';
-                $alert .= 'alert("แก้ไขข้อมูลประเภทสินค้าสำเร็จ");';
-                $alert .= 'window.location.href = "?page=' . $_GET['page'] . '";';
-                $alert .= '</script>';
-                echo $alert;
-                exit();
+            if ($stmt->execute()) {
+                echo "<script>alert('แก้ไขข้อมูลประเภทสินค้าสำเร็จ'); window.location.href = '?page={$_GET['page']}';</script>";
             } else {
-                echo "Error: " . $sql . "<br>" . mysqli_error($connection);
+                echo "Error: " . $stmt->error;
             }
-
-            mysqli_close($connection);
         }
     }
 }
 ?>
+
 <script type="text/javascript">
 
 </script>
@@ -58,10 +75,26 @@ if (isset($_GET['brand_id']) && !empty($_GET['brand_id'])) {
 
                 <form method="post" enctype="multipart/form-data">
                     <div class="mb-3">
-                        <label class="form-label">ชื่อแบรนด์</label>
-                        <input type="text" class="form-control" name="brand_name" placeholder="ชื่อแบรนด์"
-                            value="<?= $result['brand_name'] ?>" autocomplete="off" required>
+                        <label class="form-label">รูปแบรนด์</label>
+                        <div class="mb-3">
+                            <?php if(!empty($result['img'])): ?>
+                                <img id="preview" src="upload/brand/<?= $result['img'] ?>" class="rounded" width="250" height="250">
+                                <?php else: ?>
+                                <img id="preview" src="https://static.vecteezy.com/system/resources/thumbnails/022/059/000/small_2x/no-image-available-icon-vector.jpg" class="rounded" width="250" height="250">
+                            <?php endif; ?>
+                        </div>
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="image">เลือกรูปภาพ</label>
+                            <input type="file" class="form-control" name="img" id="img">
+                            
+                        </div>
                     </div>
+                    <div class="mb-3 col-lg-6">
+                    <label class="form-label">ชื่อแบรนด์</label>
+                        <input type="text" class="form-control" name="brand_name" placeholder="ชื่อแบรนด์"
+                            value="<?= $result['brand_name'] ?>" autocomplete="off" required>                    
+                    </div>
+                    
                     <button type="submit" class="btn app-btn-primary">บันทึก</button>
                 </form>
             </div><!--//app-card-body-->

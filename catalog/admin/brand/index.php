@@ -21,6 +21,7 @@ $query = mysqli_query($connection, $sql);
                     <thead class="text-center">
                         <tr>
                             <th scope="col" class="text-center">ลำดับ</th>
+                            <th scope="col" class="text-center">รูปแบรนด์</th>
                             <th scope="col" class="text-center">ประเภทสินค้า</th>
                             <th scope="col" class="text-center">เมนู</th>
                         </tr>
@@ -32,6 +33,7 @@ $query = mysqli_query($connection, $sql);
                         ?>
                             <tr>
                                 <td class="align-middle text-center"><?= $i++ ?></td>
+                                <td class="align-middle"><img src="upload/brand/<?= $data['brand_img'] ?>"class="rounded" width="75" height="75"></td>
                                 <td class="align-middle"><?= $data['brand_name'] ?></td>
                                 <td class="align-middle">
                                     <a href="?page=<?= $_GET['page'] ?>&function=update&brand_id=<?= $data['brand_id'] ?>"
