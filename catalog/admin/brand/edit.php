@@ -1,6 +1,6 @@
 <?php
 if (isset($_GET['brand_id']) && !empty($_GET['brand_id'])) {
-    $brand_id = intval($_GET['brand_id']); // แปลงเป็นตัวเลขเพื่อความปลอดภัย
+    $brand_id = $_GET['brand_id']; // แปลงเป็นตัวเลขเพื่อความปลอดภัย
     $stmt = $connection->prepare("SELECT * FROM brand WHERE brand_id = ?");
     $stmt->bind_param("i", $brand_id);
     $stmt->execute();
@@ -8,9 +8,9 @@ if (isset($_GET['brand_id']) && !empty($_GET['brand_id'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $img = $_POST['img'];
+    $brand_img = $_POST['img'];
     $brand_name = $_POST['brand_name'];
-    $filename = $old_img;
+    // $filename = $old_img;
 
     if (!empty($_FILES['img']['name'])) {
         $extension = ["jpeg", "jpg", "png", "gif"];
@@ -18,14 +18,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $filename = uniqid() . '.' . pathinfo($_FILES['img']['name'], PATHINFO_EXTENSION);
 
         if (in_array(pathinfo($_FILES['img']['name'], PATHINFO_EXTENSION), $extension)) {
-            if (move_uploaded_file($_FILES['img']['tmp_name'], $target . $filename)) {
-                if ($old_img && file_exists($target . $old_img)) {
-                    unlink($target . $old_img); // ลบรูปเก่า
-                }
-            } else {
-                echo "<script>alert('เพิ่มไฟล์เข้า folder ไม่สำเร็จ');</script>";
-                exit();
-            }
+            // if (move_uploaded_file($_FILES['img']['tmp_name'], $target . $filename)) {
+            //     if ($old_img && file_exists($target . $old_img)) {
+            //         unlink($target . $old_img);
+            //     }
+            // } else {
+            //     echo "<script>alert('เพิ่มไฟล์เข้า folder ไม่สำเร็จ');</script>";
+            //     exit();
+            // }
         } else {
             echo "<script>alert('ประเภทไฟล์ไม่ถูกต้อง');</script>";
             exit();
@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <?php endif; ?>
                         </div>
                         <div class="input-group mb-3">
-                            <label class="input-group-text" for="image">เลือกรูปภาพ</label>
+                            <label class="input-group-text" for="img">เลือกรูปภาพ</label>
                             <input type="file" class="form-control" name="img" id="img">
                             
                         </div>
