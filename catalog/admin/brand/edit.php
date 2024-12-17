@@ -8,29 +8,26 @@ if (isset($_GET['brand_id']) && !empty($_GET['brand_id'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $brand_img = $_POST['img'];
     $brand_name = $_POST['brand_name'];
-    // $filename = $old_img;
+    $brand_img = $result['brand_img'];
 
-    if (!empty($_FILES['img']['name'])) {
-        $extension = ["jpeg", "jpg", "png", "gif"];
-        $target = 'upload/brand/';
-        $filename = uniqid() . '.' . pathinfo($_FILES['img']['name'], PATHINFO_EXTENSION);
+        if (!empty($_FILES['img']['name'])) {
+            $extension = ["jpeg", "jpg", "png", "gif"];
+            $target = 'upload/brand/';
+            $file_extension = pathinfo($_FILES['img']['name'], PATHINFO_EXTENSION);
+            $filename = uniqid() . '.' . $file_extension;
 
-        if (in_array(pathinfo($_FILES['img']['name'], PATHINFO_EXTENSION), $extension)) {
-            // if (move_uploaded_file($_FILES['img']['tmp_name'], $target . $filename)) {
-            //     if ($old_img && file_exists($target . $old_img)) {
-            //         unlink($target . $old_img);
-            //     }
-            // } else {
-            //     echo "<script>alert('เพิ่มไฟล์เข้า folder ไม่สำเร็จ');</script>";
-            //     exit();
-            // }
-        } else {
-            echo "<script>alert('ประเภทไฟล์ไม่ถูกต้อง');</script>";
-            exit();
+            if (in_array($file_extension, $extension)) {
+                if (move_uploaded_file($_FILES['img']['tmp_name'], $target . $filename)) {
+                } else {
+                    echo "<script>alert('ไม่สามารถอัปโหลดไฟล์ได้');</script>";
+                    exit();
+                }
+            } else {
+                echo "<script>alert('ประเภทไฟล์ไม่ถูกต้อง');</script>";
+                exit();
+            }
         }
-    }
 
     if (!empty($brand_name)) {
         $stmt = $connection->prepare("SELECT * FROM brand WHERE brand_name = ? AND brand_id != ?");

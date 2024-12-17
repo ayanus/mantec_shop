@@ -108,11 +108,80 @@
         background-color: black;
     }
 
+    .card {
+        height: 100%; /* ทำให้ทุก Card มีความสูงเท่ากัน */
+        display: flex;
+        flex-direction: column; /* จัดเรียงภายใน Card แบบแนวตั้ง */
+    }
+
+    .card-img-top {
+        height: 200px; /* กำหนดความสูงของรูปภาพ */
+        object-fit: cover; /* ป้องกันการบิดเบี้ยวและครอบภาพให้พอดี */
+    }
+
+    .card-body {
+        flex-grow: 1; /* ให้เนื้อหาด้านในขยายตัวตามพื้นที่ที่เหลือ */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; /* จัดให้ปุ่มอยู่ล่างสุด */
+    }
+
+    .card-title {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .card-text {
+        font-size: 0.9rem;
+    }
+
     .container-custom {
         padding-left: 150px;
         padding-right: 150px;
     }
 
+    .brand-custom {
+        padding-left: 70px;
+        padding-right: 70px;
+    }
+
+    .brand-box {
+        border: 2px solid #ddd; /* เส้นกรอบสีเทา */
+        border-radius: 8px; /* มุมกรอบโค้งมน */
+        width: 130px; 
+        height: 90px; 
+        display: flex; /* จัดวางรูปภาพให้อยู่ตรงกลาง */
+        justify-content: center; /* จัดให้อยู่กึ่งกลางแนวนอน */
+        align-items: center; /* จัดให้อยู่กึ่งกลางแนวตั้ง */
+        overflow: hidden; /* ซ่อนส่วนที่ล้นออกจากกรอบ */
+        margin: auto; /* ทำให้กรอบอยู่กึ่งกลางคอลัมน์ */
+        padding: 10px; /* ระยะห่างของรูปภาพกับกรอบ */
+        cursor: pointer; /* เปลี่ยนเมาส์เป็นรูปนิ้วชี้ */
+        transition: transform 0.3s ease-in-out; /* เพิ่มการขยับแบบ Smooth */    
+    }
+
+    .brand-box a {
+        display: block; /* ทำให้ <a> เป็น block เต็มพื้นที่ของ .brand-box */
+        width: 100%;
+        height: 100%;
+        text-decoration: none; /* เอาขีดเส้นใต้ลิงก์ออก */
+    }
+
+    .brand-box a img {
+        max-width: 100%; /* ปรับขนาดรูปให้พอดีกรอบ */
+        max-height: 100%; /* ปรับขนาดรูปให้พอดีกรอบ */
+        object-fit: contain; /* รักษาสัดส่วนของรูปภาพ */
+        transition: transform 0.3s ease;
+    }
+
+    .brand-box:hover {
+        transform: translateY(-10px); /* ขยับขึ้นเล็กน้อย */
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); /* เพิ่มเงา */
+    }
+
+    .brand-box:hover img {
+        transform: scale(1.05); /* ขยายภาพขึ้นเล็กน้อย */
+    }
 </style>
 
 <body>
@@ -124,7 +193,7 @@
         <img src="https://www.computersmobile.com.au/wp-content/uploads/2016/11/shop.jpg" alt="logo">
     </div>
 
-    <div class="container">
+    <div class="container ">
         <div class="main">
             <div class="text-main">
                 <h1 class="text-center">DELL</h1>
@@ -151,7 +220,6 @@
             </h5>
         </div>
 
-         <!-- สินค้าไม่แสดง -->
         <div class="product pt-3 pb-5">
             <h1 class="text-center">PRODUCT</h1>
 
@@ -159,19 +227,17 @@
                 $query =  mysqli_query($connection, "SELECT * FROM sp_product WHERE id IN (SELECT MIN(id)FROM sp_product GROUP BY type)");
                 $rows = mysqli_num_rows($query);
             ?>
-            <div class="container container-custom">
+            <div class="container container-custom pt-4">
                 <div class="row row-cols-1 row-cols-md-4 g-4">
                     <?php if ($rows > 0): ?> <!-- ตรวจสอบว่ามีแถวข้อมูล -->
                         <?php while($product = mysqli_fetch_assoc($query)): ?> <!-- ใช้ $rows ที่กำหนดจาก query -->
                             <div class="col">
                                 <div class="card ">
-                                <div class="ratio ratio-1x1">
                                     <?php if(!empty($product['img'])): ?>
                                         <img src="admin/upload/product/<?php echo $product['img']?>" class="card-img-top" alt="Product image">
                                     <?php else: ?>
                                         <img src="https://static.vecteezy.com/system/resources/thumbnails/022/059/000/small_2x/no-image-available-icon-vector.jpg" class="card-img-top" alt="...">
                                     <?php endif; ?>
-                                </div>
                                     <div class="card-body">
                                         <h5 class="card-title"><?= $product['name'] ?></h5>
                                         <p class="card-text text-muted"><?= $product['description'] ?></p>
@@ -188,14 +254,32 @@
             </div>
         </div>
 
-        <div class="brand">
+        <div class="brand pt-3 pb-5">
             <h1 class="text-center">BRAND</h1>
-            <div class="row">
-                
+
+            <?php
+                $query =  mysqli_query($connection, "SELECT * FROM brand");
+                $rows = mysqli_num_rows($query);
+            ?>
+
+            <div class="container brand-custom pt-4">
+                <div class="row g-4">                    
+                    <?php if ($rows > 0): ?> <!-- ตรวจสอบว่ามีแถวข้อมูล -->
+                        <?php while($brand = mysqli_fetch_assoc($query)): ?> <!-- ใช้ $rows ที่กำหนดจาก query -->
+                            <div class="col">
+                                <div class="brand-box">
+                                    <a href="product_by_brand.php?brand_id=<?php echo $brand['brand_id']; ?>">                                        
+                                        <img src="admin/upload/brand/<?php echo $brand['brand_img']?>" class="img-fluid" alt="brand image">
+                                    </a>
+                                </div>
+                            </div>
+                        <?php endwhile; ?>
+                    <?php else: ?>
+                        <p class="text-center text-muted">ไม่มีแบรนด์</p>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
-    </div>
 
-    
-    
+    </div>
 </body>
