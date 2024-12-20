@@ -19,13 +19,13 @@
             </li>
 
             <?php
-                $sql="SELECT * FROM tb_type_product ORDER BY id";
+                $sql="SELECT * FROM product_type ORDER BY type_id";
                 $hand=mysqli_query($connection,$sql); //ดึงข้อมูล database
                 while($row=mysqli_fetch_array($hand)){
             ?>
               <li>
-                <a class="dropdown-item" href="?page=product&type=<?= htmlspecialchars($row['title']); ?>">
-                  <?= htmlspecialchars($row['title']); ?>
+                <a class="dropdown-item" href="?page=product&type=<?= htmlspecialchars($row['type_name']); ?>">
+                  <?= htmlspecialchars($row['type_name']); ?>
                 </a>
               </li>               
             <?php 

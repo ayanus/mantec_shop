@@ -35,12 +35,12 @@
                 include('service/index.php');
             } else if (isset($_GET['page']) && ($_GET['page']) == 'product') {
                 include('product/index.php');
-                if (isset($_GET['type']) && $_GET['type'] == 'All Product') {
-                    $sql = "SELECT * FROM sp_product";
-                } else {
-                    $type = mysqli_real_escape_string($connection, $_GET['type']);
-                    $sql = "SELECT * FROM sp_product WHERE type = '$type'";
-                }
+                // if (isset($_GET['product_type_id']) && $_GET['product_type_id'] == 'All Product') {
+                //     $sql = "SELECT * FROM product";
+                // } else {
+                //     $type = mysqli_real_escape_string($connection, $_GET['product_type_id']);
+                //     $sql = "SELECT * FROM product WHERE type = '$type'";
+                // }
                 $rows = mysqli_query($connection, $sql);
 
                 // ตรวจสอบผลลัพธ์จาก mysqli_query

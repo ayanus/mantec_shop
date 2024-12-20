@@ -74,20 +74,20 @@
     }
 
     .img-main {
-        width: 80%; /* กำหนดความกว้างของบล็อค */
-        height: auto; /* กำหนดความสูงของบล็อค */
-        overflow: hidden; /* ซ่อนรูปภาพที่ล้น */
-        display: flex; /* ใช้ Flexbox จัดการเลย์เอาต์ */
-        justify-content: space-between; /* กระจายรูปภาพแบบมีระยะห่าง */
-        align-items: center; /* จัดให้อยู่กึ่งกลางแนวตั้ง */
-        margin: auto; /* ทำให้บล็อคอยู่ตรงกลาง */
+        width: 80%; 
+        height: auto; 
+        overflow: hidden; 
+        display: flex;
+        justify-content: space-between; 
+        align-items: center; 
+        margin: auto; 
         padding: 10px;
     }
 
     .img-main img {
-        width: 30%; /* รูปภาพแต่ละภาพมีความกว้าง 30% */
-        height: auto; /* รักษาสัดส่วนของรูป */
-        border-radius: 10px; /* มุมมน */
+        width: 30%; 
+        height: auto; 
+        border-radius: 10px; 
     }
 
     .service {
@@ -99,7 +99,7 @@
     .service-title {
         display: inline-flex;
         align-items: center;
-        gap: 30px; /* ระยะห่างระหว่างข้อความและเส้น */
+        gap: 30px;
     }
 
     .vertical-line {
@@ -109,21 +109,21 @@
     }
 
     .card {
-        height: 100%; /* ทำให้ทุก Card มีความสูงเท่ากัน */
+        height: 100%; 
         display: flex;
-        flex-direction: column; /* จัดเรียงภายใน Card แบบแนวตั้ง */
+        flex-direction: column;
     }
 
     .card-img-top {
-        height: 200px; /* กำหนดความสูงของรูปภาพ */
-        object-fit: cover; /* ป้องกันการบิดเบี้ยวและครอบภาพให้พอดี */
+        height: 200px;
+        object-fit: cover; 
     }
 
     .card-body {
-        flex-grow: 1; /* ให้เนื้อหาด้านในขยายตัวตามพื้นที่ที่เหลือ */
+        flex-grow: 1;
         display: flex;
         flex-direction: column;
-        justify-content: space-between; /* จัดให้ปุ่มอยู่ล่างสุด */
+        justify-content: space-between; 
     }
 
     .card-title {
@@ -146,41 +146,44 @@
     }
 
     .brand-box {
-        border: 2px solid #ddd; /* เส้นกรอบสีเทา */
-        border-radius: 8px; /* มุมกรอบโค้งมน */
+        border: 2px solid #ddd;
+        border-radius: 8px; 
         width: 130px; 
         height: 90px; 
-        display: flex; /* จัดวางรูปภาพให้อยู่ตรงกลาง */
-        justify-content: center; /* จัดให้อยู่กึ่งกลางแนวนอน */
-        align-items: center; /* จัดให้อยู่กึ่งกลางแนวตั้ง */
-        overflow: hidden; /* ซ่อนส่วนที่ล้นออกจากกรอบ */
-        margin: auto; /* ทำให้กรอบอยู่กึ่งกลางคอลัมน์ */
-        padding: 10px; /* ระยะห่างของรูปภาพกับกรอบ */
-        cursor: pointer; /* เปลี่ยนเมาส์เป็นรูปนิ้วชี้ */
-        transition: transform 0.3s ease-in-out; /* เพิ่มการขยับแบบ Smooth */    
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+        overflow: hidden; 
+        margin: auto; 
+        padding: 0; 
+        cursor: pointer;
+        transition: transform 0.3s ease-in-out; 
+        background-color: #f8f9fa;   
     }
 
     .brand-box a {
-        display: block; /* ทำให้ <a> เป็น block เต็มพื้นที่ของ .brand-box */
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: 100%;
         height: 100%;
-        text-decoration: none; /* เอาขีดเส้นใต้ลิงก์ออก */
+        text-decoration: none;
     }
 
-    .brand-box a img {
-        max-width: 100%; /* ปรับขนาดรูปให้พอดีกรอบ */
-        max-height: 100%; /* ปรับขนาดรูปให้พอดีกรอบ */
-        object-fit: contain; /* รักษาสัดส่วนของรูปภาพ */
+    .brand-box img {
+        width: 80%; 
+        height: 80%; 
+        object-fit: contain;
         transition: transform 0.3s ease;
     }
 
     .brand-box:hover {
-        transform: translateY(-10px); /* ขยับขึ้นเล็กน้อย */
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); /* เพิ่มเงา */
+        transform: translateY(-10px); 
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     }
 
     .brand-box:hover img {
-        transform: scale(1.05); /* ขยายภาพขึ้นเล็กน้อย */
+        transform: scale(1.05);
     }
 </style>
 
@@ -224,12 +227,12 @@
             <h1 class="text-center">PRODUCT</h1>
 
             <?php
-                $query =  mysqli_query($connection, "SELECT * FROM sp_product WHERE id IN (SELECT MIN(id)FROM sp_product GROUP BY type)");
+                $query =  mysqli_query($connection, "SELECT * FROM product WHERE product_id IN (SELECT MIN(product_id)FROM product GROUP BY product_type_id)");
                 $rows = mysqli_num_rows($query);
             ?>
             <div class="container container-custom pt-4">
-                <div class="row row-cols-1 row-cols-md-4 g-4">
-                    <?php if ($rows > 0): ?> <!-- ตรวจสอบว่ามีแถวข้อมูล -->
+                <?php if ($rows > 0): ?> <!-- ตรวจสอบว่ามีแถวข้อมูล -->
+                    <div class="row row-cols-1 row-cols-md-4 g-4">
                         <?php while($product = mysqli_fetch_assoc($query)): ?> <!-- ใช้ $rows ที่กำหนดจาก query -->
                             <div class="col">
                                 <div class="card ">
@@ -247,10 +250,10 @@
                                 </div>
                             </div> 
                         <?php endwhile; ?>
+                    </div>
                     <?php else: ?>
-                        <p class="text-center text-muted">ไม่มีสินค้าตามประเภทที่เลือก</p>
-                    <?php endif; ?>
-                </div>
+                        <p class="text-center text-muted">ไม่มีสินค้าในระบบ</p>
+                <?php endif; ?>
             </div>
         </div>
 
@@ -262,23 +265,27 @@
                 $rows = mysqli_num_rows($query);
             ?>
 
-            <div class="container brand-custom pt-4">
-                <div class="row g-4">                    
-                    <?php if ($rows > 0): ?> <!-- ตรวจสอบว่ามีแถวข้อมูล -->
+            <div class="brand-custom pt-4">
+            <?php if ($rows > 0): ?> <!-- ตรวจสอบว่ามีแถวข้อมูล -->
+                <div class="row row-cols-md-7 g-4">                    
                         <?php while($brand = mysqli_fetch_assoc($query)): ?> <!-- ใช้ $rows ที่กำหนดจาก query -->
                             <div class="col">
                                 <div class="brand-box">
-                                    <a href="product_by_brand.php?brand_id=<?php echo $brand['brand_id']; ?>">                                        
+                                    <a href="?page=product&brand=<?php echo $brand['brand_name']?>">                                    
                                         <img src="admin/upload/brand/<?php echo $brand['brand_img']?>" class="img-fluid" alt="brand image">
                                     </a>
                                 </div>
                             </div>
                         <?php endwhile; ?>
-                    <?php else: ?>
-                        <p class="text-center text-muted">ไม่มีแบรนด์</p>
-                    <?php endif; ?>
                 </div>
+                    <?php else: ?>
+                        <p class="text-center text-muted">ไม่มีแบรนด์ในระบบ</p>
+                    <?php endif; ?>
             </div>
+        </div>
+
+        <div class="manual">
+            
         </div>
 
     </div>
