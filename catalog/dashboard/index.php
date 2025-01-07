@@ -158,7 +158,7 @@
         padding: 0; 
         cursor: pointer;
         transition: transform 0.3s ease-in-out; 
-        background-color: #f8f9fa;   
+
     }
 
     .brand-box a {

@@ -1,8 +1,10 @@
 <?php
-// อันเก่า
-// $sql = "SELECT * ,p.id,p.name,tp.title AS type FROM sp_product p LEFT JOIN tb_type_product tp ON p.type = tp.id";
-// โค้ดใหม่
-$sql = "SELECT * ,p.id,p.name,tp.title AS type FROM sp_product p LEFT JOIN tb_type_product tp ON p.type = tp.title";
+$sql = "SELECT product.product_id, product.product_name, product.img, product.price , product_type.type_name, brand.brand_name
+        FROM product
+        JOIN product_type ON product.product_type_id = product_type.type_id
+        JOIN brand ON product.brand_id = brand.brand_id
+        ORDER BY product.product_name; 
+        ";
 $query = mysqli_query($connection, $sql);
 ?>
 <div class="row justify-content-between">
@@ -26,6 +28,7 @@ $query = mysqli_query($connection, $sql);
                             <th scope="col" class="text-center">ลำดับ</th>
                             <th scope="col" class="text-center">รูปภาพ</th>
                             <th scope="col" class="text-center">ชื่อสินค้า</th>
+                            <th scope="col" class="text-center">แบรนด์</th>
                             <th scope="col" class="text-center">ประเภทสินค้า</th>
                             <th scope="col" class="text-center">ราคา</th>
                             <th scope="col" class="text-center">เมนู</th>
@@ -41,15 +44,16 @@ $query = mysqli_query($connection, $sql);
                                 <td class="align-middle">
                                     <img src="upload/product/<?= $data['img'] ?>"class="rounded" width="75" height="75">
                                 </td>
-                                <td class="align-middle"><?= $data['name'] ?></td>
-                                <td class="align-middle"><?= $data['type'] ?></td>
+                                <td class="align-middle"><?= $data['product_name'] ?></td>
+                                <td class="align-middle"><?= $data['brand_name'] ?></td>
+                                <td class="align-middle"><?= $data['type_name'] ?></td>
                                 <td class="align-middle text-center"><?= number_format($data['price']) ?></td>
                                
                                 <td class="align-middle">
-                                    <a href="?page=<?= $_GET['page'] ?>&function=update&id=<?= $data['id'] ?>"
+                                    <a href="?page=<?= $_GET['page'] ?>&function=update&id=<?= $data['product_id'] ?>"
                                         class="btn btn-sm btn-warning">แก้ไข</a>
-                                    <a href="?page=<?= $_GET['page'] ?>&function=delete&id=<?= $data['id'] ?>"
-                                        onclick="return confirm('คุณต้องการลบ ชื่อสินค้า : <?= $data['name'] ?> หรือไม่')"
+                                    <a href="?page=<?= $_GET['page'] ?>&function=delete&id=<?= $data['product_id'] ?>"
+                                        onclick="return confirm('คุณต้องการลบ ชื่อสินค้า : <?= $data['product_name'] ?> หรือไม่')"
                                         class="btn btn-sm btn-danger">ลบ</a>
                                 </td>
                             </tr>

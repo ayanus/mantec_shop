@@ -2,17 +2,17 @@
     <ul class="nav justify-content-center">
         <li class="nav-item">
           <a class="nav-link text-dark<?php echo isset($_GET['page']) && ($_GET['page']) == 'home' ? 'active' : '' ?>" href="?page=home">
-          Home</a>
+          หน้าหลัก</a>
         </li>
 
         <li class="nav-item dropdown">
           <a class="nav-link text-dark<?php echo isset($_GET['page']) && ($_GET['page']) == 'service' ? 'active' : '' ?>" href="?page=service">
-          Service</a>
+          งานบริการ</a>
         </li>
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-dark <?php echo isset($_GET['page']) && ($_GET['page']) == 'product' ? 'active' : '' ?>" href="?page=product" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Product</a>
+          หมวดสินค้า</a>
           <ul class="dropdown-menu">
             <li>
               <a class="dropdown-item" href="?page=product&type=all">All Product</a>
@@ -37,12 +37,12 @@
 
         <li class="nav-item">
             <a class="nav-link text-dark<?php echo isset($_GET['page']) && ($_GET['page']) == 'about' ? 'active' : '' ?>" href="?page=about">
-            about</a>
+            เกี่ยวกับเรา</a>
         </li>
 
         <li class="nav-item">
           <a class="nav-link text-dark<?php echo isset($_GET['page']) && ($_GET['page']) == 'contact' ? 'active' : '' ?>" href="?page=contact">
-            contact</a>
+            ช่องทางการติดต่อ</a>
         </li>
         
     </ul>
