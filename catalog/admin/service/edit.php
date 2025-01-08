@@ -1,6 +1,6 @@
 <?php
 if (isset($_GET['service_id']) && !empty($_GET['service_id'])) {
-    $brand_id = $_GET['service_id']; // แปลงเป็นตัวเลขเพื่อความปลอดภัย
+    $service_id = $_GET['service_id']; // แปลงเป็นตัวเลขเพื่อความปลอดภัย
     $stmt = $connection->prepare("SELECT * FROM service WHERE service_id = ?");
     $stmt->bind_param("i", $service_id);
     $stmt->execute();
@@ -8,7 +8,7 @@ if (isset($_GET['service_id']) && !empty($_GET['service_id'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $service_id = $_POST['service_id'];
+    $service_name = $_POST['service_name'];
     $img = $result['img'];
 
         if (!empty($_FILES['img']['name'])) {
@@ -19,6 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if (in_array($file_extension, $extension)) {
                 if (move_uploaded_file($_FILES['img']['tmp_name'], $target . $filename)) {
+                    $img = $filename;
                 } else {
                     echo "<script>alert('ไม่สามารถอัปโหลดไฟล์ได้');</script>";
                     exit();
@@ -29,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-    if (!empty($brand_name)) {
+    if (!empty($service_name)) {
         $stmt = $connection->prepare("SELECT * FROM service WHERE service_name = ? AND service_id != ?");
         $stmt->bind_param("si", $service_name, $service_id);
         $stmt->execute();
@@ -40,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit();
         } else {
             $stmt = $connection->prepare("UPDATE service SET service_name = ?, img = ? WHERE service_id = ?");
-            $stmt->bind_param("ssi", $service_name, $filename, $service_id);
+            $stmt->bind_param("ssi", $service_name, $img, $service_id);
 
             if ($stmt->execute()) {
                 echo "<script>alert('แก้ไขข้อมูลประเภทสินค้าสำเร็จ'); window.location.href = '?page={$_GET['page']}';</script>";
@@ -76,13 +77,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="mb-3">
                             <?php if(!empty($result['img'])): ?>
                                 <img id="preview" src="upload/service/<?= $result['img'] ?>" class="rounded" width="250" height="250">
-                                <?php else: ?>
+                            <?php else: ?>
                                 <img id="preview" src="https://static.vecteezy.com/system/resources/thumbnails/022/059/000/small_2x/no-image-available-icon-vector.jpg" class="rounded" width="250" height="250">
                             <?php endif; ?>
                         </div>
                         <div class="input-group mb-3">
+                            <input type="hidden" name="existing_img" value="<?= $result['img'] ?>">
                             <input type="file" class="form-control" name="img" id="img">
-                            
                         </div>
                     </div>
                     <div class="mb-3 col-lg-6">

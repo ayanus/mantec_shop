@@ -35,12 +35,12 @@ $query = mysqli_query($connection, $sql);
                                 <td class="align-middle">
                                     <img src="upload/service/<?= $data['img'] ?>"class="rounded" width="75" height="75">
                                 </td>
-                                <td class="align-middle"><?= $data['service_name'] ?></td>
+                                <td class="align-middle" name="service_name"><?= $data['service_name'] ?></td>
                             
                                 <td class="align-middle">
-                                    <a href="?page=<?= $_GET['page'] ?>&function=update&id=<?= $data['service_id'] ?>"
+                                    <a href="?page=<?= $_GET['page'] ?>&function=update&service_id=<?= $data['service_id'] ?>"
                                         class="btn btn-sm btn-warning">แก้ไข</a>
-                                    <a href="?page=<?= $_GET['page'] ?>&function=delete&id=<?= $data['service_id'] ?>"
+                                    <a href="?page=<?= $_GET['page'] ?>&function=delete&service_id=<?= $data['service_id'] ?>"
                                         onclick="return confirm('คุณต้องการลบ ชื่อสินค้า : <?= $data['service_name'] ?> หรือไม่')"
                                         class="btn btn-sm btn-danger">ลบ</a>
                                 </td>

@@ -2,7 +2,7 @@
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
         <a class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none <?php echo isset($_GET['page']) && ($_GET['page']) == 'home' ? 'active' : '' ?>" href="?page=home">
-          <img class="logo-icon me-2" width="70" src="image/logo.png" alt="logo">
+          <img class="logo-icon me-2" width="70" src="image/new-logo.png" alt="logo">
         </a>
 
         <form class="col-12 col-lg-8 mb-3 mb-lg-0 me-lg-6 mx-auto" role="search">

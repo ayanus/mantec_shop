@@ -11,14 +11,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $brand_name = $_POST['brand_name'];
     $brand_img = $result['brand_img'];
 
-        if (!empty($_FILES['img']['name'])) {
+        if (!empty($_FILES['brand_img']['name'])) {
             $extension = ["jpeg", "jpg", "png", "gif"];
             $target = 'upload/brand/';
-            $file_extension = pathinfo($_FILES['img']['name'], PATHINFO_EXTENSION);
+            $file_extension = pathinfo($_FILES['brand_img']['name'], PATHINFO_EXTENSION);
             $filename = uniqid() . '.' . $file_extension;
 
             if (in_array($file_extension, $extension)) {
-                if (move_uploaded_file($_FILES['img']['tmp_name'], $target . $filename)) {
+                if (move_uploaded_file($_FILES['brand_img']['tmp_name'], $target . $filename)) {
+                    $brand_img = $filename;
                 } else {
                     echo "<script>alert('ไม่สามารถอัปโหลดไฟล์ได้');</script>";
                     exit();
@@ -40,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit();
         } else {
             $stmt = $connection->prepare("UPDATE brand SET brand_name = ?, brand_img = ? WHERE brand_id = ?");
-            $stmt->bind_param("ssi", $brand_name, $filename, $brand_id);
+            $stmt->bind_param("ssi", $brand_name, $brand_img, $brand_id);
 
             if ($stmt->execute()) {
                 echo "<script>alert('แก้ไขข้อมูลประเภทสินค้าสำเร็จ'); window.location.href = '?page={$_GET['page']}';</script>";
@@ -74,16 +75,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="mb-3">
                         <label class="form-label">รูปแบรนด์</label>
                         <div class="mb-3">
-                            <?php if(!empty($result['img'])): ?>
-                                <img id="preview" src="upload/brand/<?= $result['img'] ?>" class="rounded" width="250" height="250">
+                            <?php if(!empty($result['brand_img'])): ?>
+                                <img id="preview" src="upload/brand/<?= $result['brand_img'] ?>" class="rounded" width="250" height="250">
                                 <?php else: ?>
                                 <img id="preview" src="https://static.vecteezy.com/system/resources/thumbnails/022/059/000/small_2x/no-image-available-icon-vector.jpg" class="rounded" width="250" height="250">
                             <?php endif; ?>
                         </div>
                         <div class="input-group mb-3">
-                            <label class="input-group-text" for="img">เลือกรูปภาพ</label>
-                            <input type="file" class="form-control" name="img" id="img">
-                            
+                            <input type="hidden" name="existing_img" value="<?= $result['brand_img'] ?>">
+                            <input type="file" class="form-control" name="brand_img" id="img"> 
                         </div>
                     </div>
                     <div class="mb-3 col-lg-6">

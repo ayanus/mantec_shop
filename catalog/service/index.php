@@ -83,7 +83,7 @@
         <img src="https://www.ซ่อมโน้ตบุ๊คหาดใหญ่.com/images/upload/gallery/thumbs/e44676d3e14f1d4f7a5b5c1cd9eecd82.jpg" alt="logo">
     </div>
 
-    <div class="container container-custom my-4">
+    <div class="container container-custom my-5">
 
         <?php
             $sql = "SELECT * FROM service;";
@@ -98,7 +98,7 @@
                 foreach ($query as $data): 
                     $isReversed = $counter % 2 == 1; // สลับด้านเมื่อ $counter เป็นเลขคี่
                 ?>
-                    <div class="col-md-12">
+                    <div class="col-md-12 my-3">
                         <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                             <?php if ($isReversed): ?>
                                 <!-- ซ้าย -->
@@ -106,17 +106,20 @@
                                     <img src="admin/upload/service/<?php echo $data['img']; ?>" alt="Service Image" class="img-fluid w-100" style="height: 350px; object-fit: cover;">
                                 </div>
                                 <div class="col p-4 d-flex flex-column position-static text-end">
-                                    <strong class="d-inline-block mb-2 text-primary-emphasis"><?php echo $data['service_name']; ?></strong>
                                     <h3 class="mb-0"><?php echo $data['service_name']; ?></h3>
                                     <p class="card-text mb-auto"><?php echo $data['detail']; ?></p>
-                                    
+                                    <div class="btn">
+                                        <a href="#" class="btn btn-primary">Contact us</a>
+                                    </div>
                                 </div>
                             <?php else: ?>
                                 <!-- ขวา -->
                                 <div class="col p-4 d-flex flex-column position-static">
-                                    <strong class="d-inline-block mb-2 text-primary-emphasis"><?php echo $data['service_name']; ?></strong>
                                     <h3 class="mb-0"><?php echo $data['service_name']; ?></h3>
                                     <p class="card-text mb-auto"><?php echo $data['detail']; ?></p>
+                                    <div class="btn">
+                                        <a href="#" class="btn btn-primary">Contact us</a>
+                                    </div>
                                 </div>
                                 <div class="col-auto d-none d-lg-block">
                                     <img src="admin/upload/service/<?php echo $data['img']; ?>" alt="Service Image" class="img-fluid w-100" style="height: 350px; object-fit: cover;">
