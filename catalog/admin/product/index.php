@@ -3,7 +3,7 @@ $sql = "SELECT product.product_id, product.product_name, product.img, product.pr
         FROM product
         JOIN product_type ON product.product_type_id = product_type.type_id
         JOIN brand ON product.brand_id = brand.brand_id
-        ORDER BY product.product_name; 
+        ORDER BY product.product_id DESC; 
         ";
 $query = mysqli_query($connection, $sql);
 ?>

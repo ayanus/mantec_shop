@@ -242,10 +242,10 @@
                                         <img src="https://static.vecteezy.com/system/resources/thumbnails/022/059/000/small_2x/no-image-available-icon-vector.jpg" class="card-img-top" alt="...">
                                     <?php endif; ?>
                                     <div class="card-body">
-                                        <h5 class="card-title"><?= $product['name'] ?></h5>
-                                        <p class="card-text text-muted"><?= $product['description'] ?></p>
-                                        <p class="card-text text-danger mb-0 fw-bold">฿ <?= $product['price'] ?></p>
-                                        <a href="cart.php?id=<?php echo $product['id']?>" class="btn btn-danger mt-2">เพิ่มลงตะกร้า</a>
+                                        <h5 class="card-title fs-6"><?= $product['product_name'] ?></h5>
+                                        <!-- <p class="card-text text-muted"><?= $product['detail'] ?></p> -->
+                                        <p class="card-text text-danger mb-0 fw-bold">฿ <?= number_format($product['price']) ?></p>
+                                        <a href="cart.php?id=<?php echo $product['product_id']?>" class="btn btn-danger mt-2">เพิ่มลงตะกร้า</a>
                                     </div>
                                 </div>
                             </div> 

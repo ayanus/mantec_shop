@@ -84,7 +84,7 @@
         <img src="https://www.ซ่อมโน้ตบุ๊คหาดใหญ่.com/images/upload/gallery/thumbs/00e6b31c4b42a9b0d679911ff0a1aca9.jpg" alt="logo">
     </div>
 
-    <div class="container container-custom my-3">
+    <div class="container container-custom my-4">
 
         <?php
 
@@ -114,8 +114,7 @@
                                 <img src="https://static.vecteezy.com/system/resources/thumbnails/022/059/000/small_2x/no-image-available-icon-vector.jpg" class="card-img-top" alt="...">
                             <?php endif; ?>
                             <div class="card-body">
-                                <h5 class="card-title"><?= $product['product_name'] ?></h5>
-                                <p class="card-text text-muted"><?= $product['detail'] ?></p>
+                                <h5 class="card-title fs-6"><?= $product['product_name'] ?></h5>
                                 <p class="card-text text-danger mb-0 fw-bold">฿ <?= $product['price'] ?></p>
                                 <a href="#?id=<?php echo $product['product_id']?>" class="btn btn-danger mt-2">เพิ่มลงตะกร้า</a>
                             </div>

@@ -1,14 +1,11 @@
 <?php
 if (isset($_POST) && !empty($_POST)) {
-    $product_type_id = $_POST['product_type_id'];
-    $brand_id = $_POST['brand_id'];
-    $product_name = $_POST['product_name'];
+    $service_name = $_POST['service_name'];
     $detail = $_POST['detail']; 
-    $price = $_POST['price'];
 
     if (isset($_FILES['img']['name']) && !empty($_FILES['img']['name'])) {
         $extension = array("jpeg", "jpg", "png", "gif");
-        $target = 'upload/product/';
+        $target = 'upload/service/';
         $filename = $_FILES['img']['name'];
         $filetmp = $_FILES['img']['tmp_name'];
         $ext = pathinfo($filename, PATHINFO_EXTENSION);
@@ -48,7 +45,7 @@ if (isset($_POST) && !empty($_POST)) {
     } else {
         $filename = '../../../image/no-image.jpg';
     }
-    $sql = "INSERT INTO product(product_name, img, price, detail, product_type_id, brand_id) VALUES('$product_name','$filename','$price','$detail','$product_type_id', '$brand_id')";
+    $sql = "INSERT INTO service(service_name, img, detail) VALUES('$service_name','$filename','$detail')";
 
     if (mysqli_query($connection, $sql)) {
         $alert = '<script type="text/javascript">';
@@ -100,71 +97,22 @@ $query = mysqli_query($connection, $sql);
                             <img id="preview" class="rounded" width="250" height="250">
                         </div>
                         <div class="input-group mb-3">
-                            <!-- <label class="input-group-text" for="image">เลือกรูปภาพ</label> -->
                             <input type="file" class="form-control" name="img" id="image">
                         </div>
                     </div>
-                    
-                    <div class="dropdown mb-3 col-lg-6">
-                        <label class="form-label">แบรนด์</label>
-                        <select name="brand_id" class="form-control selectpicker" data-live-search="true" data-none-selected-text="กรุณาเลือกแบรนด์" required>
-                            <option value="" disabled selected>กรุณาเลือกแบรนด์</option>
-                            <?php
-                                $sql = "SELECT * FROM brand";
-                                $query = mysqli_query($connection, $sql);
-                                while($row=mysqli_fetch_array($query)){
-                            ?>
-                            <option value="<?= $row['brand_id'] ?>"><?= $row['brand_name'] ?></option>
-                            <?php
-                                }
-                            ?>
-                        </select>
-                    </div>
-
-                    <style>
-                        .dropdown-menu .inner li a {
-                            color: black !important; /* บังคับให้ข้อความเป็นสีดำ */
-                        }
-                    </style>
-
-                    <script>
-                        $(document).ready(function() {
-                            $('.selectpicker').selectpicker();
-                        });
-                    </script>
-
-                    <div class="dropdown mb-3 col-lg-6">
-                        <label class="form-label">ประเภทสินค้า</label>
-                        <select name="product_type_id" class="form-control" style="height: unset !important;" required>
-                            <?php
-                                $sql = "SELECT * FROM product_type";
-                                $query = mysqli_query($connection, $sql);
-                                while($row=mysqli_fetch_array($query)){
-                            ?>
-                            <option value="<?= $row['type_id'] ?>"><?= $row['type_name'] ?></option>
-                            <?php
-                                }
-                            ?>
-                        </select>
-                    </div>
 
                     <div class="mb-3 col-lg-6">
-                        <label class="form-label">ชื่อสินค้า</label>
-                        <input type="text" class="form-control" name="product_name" placeholder="ชื่อสินค้า"
+                        <label class="form-label">ชื่อการบริการ</label>
+                        <input type="text" class="form-control" name="service_name" placeholder="ชื่อสินค้า"
                             value="" autocomplete="off" required>
                     </div>
                     
                     <div class="mb-3 col-lg-6">
-                        <label class="form-label">รายละเอียดสินค้า</label>
+                        <label class="form-label">รายละเอียดการบริการ</label>
                         <textarea name="detail" class="form-control" style="height: 100px;"></textarea>
                     </div>
 
                     <hr class="mb-3 mt-4">
-
-                    <div class="mb-3 col-lg-6">
-                        <label class="form-label">ราคา</label>
-                        <input type="text" class="form-control" name="price" placeholder="ราคา" autocomplete="off" required>
-                    </div>
                     <button type="submit" class="btn app-btn-primary">บันทึก</button>
                 </form>
             </div><!--//app-card-body-->

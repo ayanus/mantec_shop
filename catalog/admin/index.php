@@ -17,7 +17,15 @@
                     include('about/index.php');
                     //service
                 } else if (isset($_GET['page']) && ($_GET['page']) == 'service') {
+                    if (isset($_GET['function']) && $_GET['function'] == 'add') {
+                        include('service/insert.php');
+                    } elseif (isset($_GET['function']) && $_GET['function'] == 'update') {
+                        include('service/edit.php');
+                    } elseif (isset($_GET['function']) && $_GET['function'] == 'delete') {
+                        include('service/delete.php');
+                    } else {
                     include('service/index.php');
+                    }
                     //company
                 } else if (isset($_GET['page']) && ($_GET['page']) == 'company') {
                     include('company/index.php');
