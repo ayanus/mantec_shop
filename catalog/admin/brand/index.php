@@ -4,7 +4,7 @@ $query = mysqli_query($connection, $sql);
 ?>
 <div class="row justify-content-between">
     <div class="col-auto">
-        <h1 class="app-page-title mb-0">จัดการประเภทสินค้า</h1>
+        <h1 class="app-page-title mb-0">จัดการข้อมูลแบรนด์</h1>
     </div>
     <div class="col-auto">
 
@@ -16,13 +16,13 @@ $query = mysqli_query($connection, $sql);
         <div class="app-card app-card-settings shadow-sm p-4">
 
             <div class="app-card-body">
-                <a href="?page=<?= $_GET['page'] ?>&function=add" class="btn btn-info text-white mb-3 float-end">เพิ่มประเภทสินค้า</a>
+                <a href="?page=<?= $_GET['page'] ?>&function=add" class="btn btn-info text-white mb-3 float-end">เพิ่มแบรนด์</a>
                 <table class="table table-hover" id="tableall">
                     <thead class="text-center">
                         <tr>
                             <th scope="col" class="text-center">ลำดับ</th>
                             <th scope="col" class="text-center">รูปแบรนด์</th>
-                            <th scope="col" class="text-center">ประเภทสินค้า</th>
+                            <th scope="col" class="text-center">แบรนด์</th>
                             <th scope="col" class="text-center">เมนู</th>
                         </tr>
                     </thead>
@@ -39,7 +39,7 @@ $query = mysqli_query($connection, $sql);
                                     <a href="?page=<?= $_GET['page'] ?>&function=update&brand_id=<?= $data['brand_id'] ?>"
                                         class="btn btn-sm btn-warning">แก้ไข</a>
                                     <a href="?page=<?= $_GET['page'] ?>&function=delete&brand_id=<?= $data['brand_id'] ?>"
-                                        onclick="return confirm('คุณต้องการลบ ชื่อประเภทสินค้า : <?= $data['brand_name'] ?> หรือไม่')"
+                                        onclick="return confirm('คุณต้องการลบ แบรนด์ : <?= $data['brand_name'] ?> หรือไม่')"
                                         class="btn btn-sm btn-danger">ลบ</a>
                                 </td>
                             </tr>

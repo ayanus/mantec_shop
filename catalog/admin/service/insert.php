@@ -77,7 +77,7 @@ $query = mysqli_query($connection, $sql);
 </script>
 <div class="row justify-content-between">
     <div class="col-auto">
-        <h1 class="app-page-title mb-0">เพิ่มข้อมูลสินค้า</h1>
+        <h1 class="app-page-title mb-0">เพิ่มข้อมูลการบริการ</h1>
     </div>
     <div class="col-auto">
         <a href="?page=<?= $_GET['page'] ?>" class="btn app-btn-secondary">ย้อนกลับ</a>
@@ -103,7 +103,7 @@ $query = mysqli_query($connection, $sql);
 
                     <div class="mb-3 col-lg-6">
                         <label class="form-label">ชื่อการบริการ</label>
-                        <input type="text" class="form-control" name="service_name" placeholder="ชื่อสินค้า"
+                        <input type="text" class="form-control" name="service_name" placeholder="ชื่อการบริการ"
                             value="" autocomplete="off" required>
                     </div>
                     

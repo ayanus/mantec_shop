@@ -8,7 +8,7 @@ if (isset($_GET['type_id']) && !empty($_GET['type_id'])) {
 if (isset($_POST) && !empty($_POST)) {
     $type_name = $_POST['type_name'];
     if (!empty($type_name)) {
-        $sql_check = "SELECT * FROM tb_type_product WHERE type_name = '$type_name' AND type_id != '$type_id'";
+        $sql_check = "SELECT * FROM product_type WHERE type_name = '$type_name' AND type_id != '$type_id'";
         $query_check = mysqli_query($connection, $sql_check);
         $row_check = mysqli_num_rows($query_check);
         if ($row_check > 0) {

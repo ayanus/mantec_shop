@@ -1,85 +1,59 @@
 <?php
-if (isset($_GET['id']) && !empty($_GET['id'])) {
-    $id = $_GET['id'];
-    $sql = "SELECT * FROM sp_product WHERE id = '$id'";
+if (isset($_GET['product_id']) && !empty($_GET['product_id'])) {
+    $product_id = $_GET['product_id'];
+    $sql = "SELECT * FROM product WHERE product_id = '$product_id'";
     $query = mysqli_query($connection, $sql);
     $result = mysqli_fetch_assoc($query);
 }
 if (isset($_POST) && !empty($_POST)) {
-    $type_product_id = $_POST['type_product_id'];
-    $title = $_POST['title'];
-    $detail = $_POST['detail'];
+    $product_type_id = $_POST['product_type_id'];
+    $brand_id = $_POST['brand_id'];
+    $product_name = $_POST['product_name'];
+    $detail = $_POST['detail']; 
     $price = $_POST['price'];
-    $oldimage = $_POST['oldimage'];
 
-    if (isset($_FILES['image']['name']) && !empty($_FILES['image']['name'])) {
+    if (isset($_FILES['img']['name']) && !empty($_FILES['img']['name'])) {
         $extension = array("jpeg", "jpg", "png", "gif");
         $target = 'upload/product/';
-        $filename = $_FILES['image']['name'];
-        $filetmp = $_FILES['image']['tmp_name'];
+        $filename = $_FILES['img']['name'];
+        $filetmp = $_FILES['img']['tmp_name'];
         $ext = pathinfo($filename, PATHINFO_EXTENSION);
         if (in_array($ext, $extension)) {
             if (!file_exists($target . $filename)) {
-                if (move_uploaded_file($filetmp, $target . $filename)) {
-                    $filename = $filename;
-                } else {
-                    $alert = '<script type="text/javascript">';
-                    $alert .= 'alert("เพิ่มไฟล์เข้า folder ไม่สำเร็จ");';
-                    $alert .= 'window.location.href = "?page=' . $_GET['page'] . '&function=update&id=' . $id . '";';
-                    $alert .= '</script>';
-                    echo $alert;
-                    exit();
-                }
+                move_uploaded_file($filetmp, $target . $filename);
             } else {
-                $newfilename = time() . $filename;
-                if (move_uploaded_file($filetmp, $target . $newfilename)) {
-                    $filename = $newfilename;
-                } else {
-                    $alert = '<script type="text/javascript">';
-                    $alert .= 'alert("เพิ่มไฟล์เข้า folder ไม่สำเร็จ");';
-                    $alert .= 'window.location.href = "?page=' . $_GET['page'] . '&function=update&id=' . $id . '";';
-                    $alert .= '</script>';
-                    echo $alert;
-                    exit();
-                }
+                $filename = time() . $filename;
+                move_uploaded_file($filetmp, $target . $filename);
             }
         } else {
-            $alert = '<script type="text/javascript">';
-            $alert .= 'alert("ประเภทไฟล์ไม่ถูกต้อง");';
-            $alert .= 'window.location.href = "?page=' . $_GET['page'] . '&function=update&id=' . $id . '";';
-            $alert .= '</script>';
-            echo $alert;
-            exit();
+            die("Invalid file type");
         }
     } else {
-        $filename = $oldimage;
+        $filename = $_POST['existing_img'];
     }
 
-    // echo $filename;
-    // exit();
-    $sql = "UPDATE sp_product SET 
-        type = '$type_product_id', 
-        name = '$title', 
-        description = '$detail', 
-        price = '$price', 
-        img = '$filename'
-    WHERE id = '$id'";
+    $sql = "UPDATE product 
+            SET product_name = '$product_name', 
+                img = '$filename', 
+                price = '$price', 
+                detail = '$detail', 
+                product_type_id = '$product_type_id', 
+                brand_id = '$brand_id' 
+            WHERE product_id = '$product_id'";
 
     if (mysqli_query($connection, $sql)) {
-        $alert = '<script type="text/javascript">';
-        $alert .= 'alert("แก้ไขข้อมูลสำเร็จ");';
-        $alert .= 'window.location.href = "?page=' . $_GET['page'] . '";';
-        $alert .= '</script>';
-        echo $alert;
+        echo '<script>alert("แก้ไขข้อมูลสำเร็จ"); window.location.href="?page=' . $_GET['page'] . '";</script>';
         exit();
     } else {
-        echo "Error: " . $sql . "<br>" . mysqli_error($connection);
+        die("Error: " . mysqli_error($connection));
     }
-
-    mysqli_close($connection);
 }
-$sql1 = "SELECT * FROM tb_type_product";
+
+$sql1 = "SELECT * FROM product_type";
 $query1 = mysqli_query($connection, $sql1);
+
+$sql2 = "SELECT * FROM brand";
+$query2 = mysqli_query($connection, $sql2);
 ?>
 <script type="text/javascript">
 
@@ -99,35 +73,50 @@ $query1 = mysqli_query($connection, $sql1);
 
             <div class="app-card-body">
 
-                <form action="" method="post" enctype="multipart/form-data">
-                    <div class="mb-3">
+                <form method="post" enctype="multipart/form-data">
+                    <div class="mb-3 col-lg-6">
                         <label class="form-label">รูปภาพ</label>
                         <div class="mb-3">
                             <img id="preview" src="upload/product/<?= $result['img'] ?>" class="rounded" width="250" height="250">
                         </div>
                         <div class="input-group mb-3">
-                            <label class="input-group-text" for="image">เลือกรูปภาพ</label>
-                            <input type="file" class="form-control" name="image" id="image">
-                            <input type="hidden" value="<?= $result['img'] ?>" name="oldimage">
+                            <input type="file" class="form-control" name="img" id="image">
+                            <input type="hidden" name="existing_img" value="<?= $result['img'] ?>">
                         </div>
                     </div>
-                    <div class="mb-3 col-lg-6">
-                        <label class="form-label">ประเภทสินค้า</label>
-                        <select name="type_product_id" class="form-control" style="height: unset !important;" required>
-                            <option value="" disabled>ประเภทสินค้า</option>
-                            <?php foreach ($query1 as $data): ?>
-                                <option value="<?= $data['title'] ?>" <?=$result['type'] == $data['title'] ? 'selected' : '' ?>> <?= $data['title'] ?></option>
-                            <?php endforeach; ?>
-                        </select>
+
+                    <div class="row">
+                        <div class="mb-3 col-lg-3">
+                            <label class="form-label">แบรนด์</label>
+                            <select name="brand_id" class="form-control" style="height: unset !important;" required>
+                                <option value="" disabled>แบรนด์</option>
+                                <?php foreach ($query2 as $data): ?>
+                                    <option value="<?=$data['brand_id']?>"<?= $result['brand_id'] == $data['brand_id'] ? 'selected' : '' ?>><?=$data['brand_name']?></option>                        
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+
+                        <div class="mb-3 col-lg-3">
+                            <label class="form-label">ประเภทสินค้า</label>
+                            <select name="product_type_id" class="form-control" style="height: unset !important;" required>
+                                <option value="" disabled>ประเภทสินค้า</option>
+                                <?php foreach ($query1 as $data): ?>
+                                    <option value="<?=$data['type_id']?>"<?= $result['product_type_id'] == $data['type_id'] ? 'selected' : '' ?>><?=$data['type_name']?></option>                        
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
                     </div>
+
                     <div class="mb-3 col-lg-6">
                         <label class="form-label">ชื่อสินค้า</label>
-                        <input type="text" class="form-control" name="title" placeholder="ชื่อสินค้า" value="<?= $result['name'] ?>" autocomplete="off" required>
+                        <textarea name="product_name" class="form-control" style="height: 100px;"><?= $result['product_name'] ?></textarea>
                     </div>
+
                     <div class="mb-3 col-lg-6">
                         <label class="form-label">รายละเอียดสินค้า</label>
-                        <textarea name="detail" class="form-control" style="height: 100px;"><?= $result['description'] ?></textarea>
+                        <textarea name="detail" class="form-control" style="height: 100px;"><?= $result['detail'] ?></textarea>
                     </div>
+
                     <hr class="mb-3 mt-4">
                     <div class="mb-3 col-lg-6">
                         <label class="form-label">ราคา</label>

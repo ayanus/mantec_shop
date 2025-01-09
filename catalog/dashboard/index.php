@@ -227,7 +227,11 @@
             <h1 class="text-center">PRODUCT</h1>
 
             <?php
-                $query =  mysqli_query($connection, "SELECT * FROM product WHERE product_id IN (SELECT MIN(product_id)FROM product GROUP BY product_type_id)");
+                $query =  mysqli_query($connection, "SELECT product.img, product_type.type_name  FROM product 
+                                                    JOIN product_type ON product.product_type_id = product_type.type_id
+                                                    WHERE product_id IN (SELECT MIN(product_id)FROM product GROUP BY product_type_id)
+                                                    AND product_type.type_name != 'อะไหล่ส่วนอื่น'");
+
                 $rows = mysqli_num_rows($query);
             ?>
             <div class="container container-custom pt-4">
@@ -242,10 +246,8 @@
                                         <img src="https://static.vecteezy.com/system/resources/thumbnails/022/059/000/small_2x/no-image-available-icon-vector.jpg" class="card-img-top" alt="...">
                                     <?php endif; ?>
                                     <div class="card-body">
-                                        <h5 class="card-title fs-6"><?= $product['product_name'] ?></h5>
+                                        <h5 class="card-title fs-6 text-center"><?= $product['type_name'] ?></h5>
                                         <!-- <p class="card-text text-muted"><?= $product['detail'] ?></p> -->
-                                        <p class="card-text text-danger mb-0 fw-bold">฿ <?= number_format($product['price']) ?></p>
-                                        <a href="cart.php?id=<?php echo $product['product_id']?>" class="btn btn-danger mt-2">เพิ่มลงตะกร้า</a>
                                     </div>
                                 </div>
                             </div> 

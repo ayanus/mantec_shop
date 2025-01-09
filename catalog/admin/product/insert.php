@@ -99,8 +99,7 @@ $query = mysqli_query($connection, $sql);
                         <div class="mb-3">
                             <img id="preview" class="rounded" width="250" height="250">
                         </div>
-                        <div class="input-group mb-3">
-                            <!-- <label class="input-group-text" for="image">เลือกรูปภาพ</label> -->
+                        <div class="input-group mb-3 ">
                             <input type="file" class="form-control" name="img" id="image">
                         </div>
                     </div>
