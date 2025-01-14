@@ -69,8 +69,29 @@
     }
 
     .container-custom {
-        padding-left: 150px;
-        padding-right: 150px;
+        padding-left: 100px;
+        padding-right: 100px;
+    }
+
+    input[type="number"].no-spinner {
+            -moz-appearance: textfield;
+            -webkit-appearance: none;
+            appearance: none;
+    }
+    input[type="number"].no-spinner::-webkit-inner-spin-button,
+    input[type="number"].no-spinner::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .text-truncate-3 {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        height: calc(1.5em * 3);
     }
 
 </style>
@@ -104,19 +125,54 @@
         ?>
 
         <?php if ($rows > 0): ?> <!-- ตรวจสอบว่ามีแถวข้อมูล -->
-            <div class="row row-cols-1 row-cols-md-4 g-4 mb-5 ">
+            <div class="row row-cols-3 row-cols-md-4 g-4">
                 <?php while ($product = $result->fetch_assoc()): ?>
                     <div class="col">
                         <div class="card">
                             <?php if(!empty($product['img'])): ?>
-                                <img src="admin/upload/product/<?php echo $product['img']?>" class="card-img-top" alt="Product image">
+                                <img src="admin/upload/product/<?php echo $product['img']?>" class="card-img-top img-fluid" alt="Product image" style="height: 150px; object-fit: cover;">
                             <?php else: ?>
-                                <img src="https://static.vecteezy.com/system/resources/thumbnails/022/059/000/small_2x/no-image-available-icon-vector.jpg" class="card-img-top" alt="...">
+                                <img src="https://static.vecteezy.com/system/resources/thumbnails/022/059/000/small_2x/no-image-available-icon-vector.jpg" class="card-img-top img-fluid" alt="..." style="height: 200px; object-fit: cover;">
                             <?php endif; ?>
-                            <div class="card-body">
-                                <h5 class="card-title fs-6"><?= $product['product_name'] ?></h5>
-                                <p class="card-text text-danger mb-0 fw-bold">฿ <?= $product['price'] ?></p>
-                                <a href="#?id=<?php echo $product['product_id']?>" class="btn btn-danger mt-2">เพิ่มลงตะกร้า</a>
+                            <div class="card-body d-flex flex-column">
+                                <h class="text-muted" style="font-size: 80%;"><?= str_pad($product['product_id'], 4, "0", STR_PAD_LEFT) ?></h>
+                                <p class="card-title text-truncate-3" style="font-size: 95%;" title="<?= $product['product_name'] ?>"><?= $product['product_name'] ?></p>
+                                <p class="card-text text-danger fw-bold ">฿ <?= number_format($product['price']) ?></p>
+                                <div class="row d-flex justify-content-center align-items-center">
+                                    <div class="col-6">
+                                        <div class="d-flex align-items-center justify-content-between ">
+                                            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="decrement(<?= $product['product_id'] ?>)">-</button>
+                                            <input type="number" id="quantity-<?= $product['product_id'] ?>" class="form-control text-center no-spinner" value="0" min="0" style="width: 50px;">
+                                            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="increment(<?= $product['product_id'] ?>)">+</button>
+                                        </div>
+
+                                        <script>
+                                            function increment(productId) {
+                                                const quantityInput = document.getElementById(`quantity-${productId}`);
+                                                let currentValue = parseInt(quantityInput.value) || 0;
+                                                quantityInput.value = currentValue + 1;
+                                            }
+
+                                            function decrement(productId) {
+                                                const quantityInput = document.getElementById(`quantity-${productId}`);
+                                                let currentValue = parseInt(quantityInput.value) || 0;
+                                                if (currentValue > 0) {
+                                                    quantityInput.value = currentValue - 1;
+                                                }
+                                            }
+                                        </script>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <a href="#?id=<?php echo $product['product_id']?>" class="btn btn-danger d-block">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
+                                                <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z"/>
+                                                <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                                            </svg>
+                                        </a>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                     </div> 
