@@ -1,3 +1,5 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+
 <style>
     .img-head {
         width: 100%;
@@ -84,14 +86,14 @@
         margin: 0;
     }
 
-    .text-truncate-3 {
+    .text-truncate-2 {
         display: -webkit-box;
         -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis;
-        -webkit-line-clamp: 3;
-        line-clamp: 3;
-        height: calc(1.5em * 3);
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        height: calc(1.5em * 2);
     }
 
 </style>
@@ -108,78 +110,152 @@
     <div class="container container-custom my-4">
 
         <?php
+            // ตรวจสอบว่ามีการส่งค่าตัวแปร page มาหรือไม่
+            $current_page = isset($_GET['page']) ? $_GET['page'] : 'home';
+            $brand_id = isset($_GET['brand_id']) ? $_GET['brand_id'] : null;
+            $product_type_id = isset($_GET['product_type_id']) ? $_GET['product_type_id'] : null;
+            
+            $brand_name = '';
+            $product_type_name = '';
 
-            $brand_name = isset($_GET['brand']) ? $_GET['brand'] : null;
-
-            if ($brand_name) {
-                // Query สินค้าเฉพาะแบรนด์
-                $stmt = $connection->prepare("SELECT * FROM product WHERE brand_id = ?");
+            if ($brand_id) {
+                $stmt = $connection->prepare("SELECT brand_name FROM brand WHERE brand_id = ?");
                 $stmt->bind_param("i", $brand_id);
                 $stmt->execute();
                 $result = $stmt->get_result();
-            } else {
-                // Query สินค้าทั้งหมดในกรณีไม่ได้เลือกแบรนด์
-                $result = $connection->query("SELECT * FROM product");
+                if ($row = $result->fetch_assoc()) {
+                    $brand_name = $row['brand_name'];
+                }
             }
-            $rows = $result->num_rows;        
+            
+            if ($product_type_id) {
+                $stmt = $connection->prepare("SELECT type_name FROM product_type WHERE type_id = ?");
+                $stmt->bind_param("i", $product_type_id);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                if ($row = $result->fetch_assoc()) {
+                    $product_type_name = $row['type_name'];
+                }
+            }
+
+            if ($brand_id && $product_type_id) {
+                // Query สินค้าตามแบรนด์และประเภทสินค้า
+                $stmt = $connection->prepare("SELECT * FROM product WHERE brand_id = ? AND product_type_id = ?");
+                $stmt->bind_param("ii", $brand_id, $product_type_id);
+            } elseif ($brand_id) {
+                // Query สินค้าเฉพาะแบรนด์
+                $stmt = $connection->prepare("SELECT * FROM product WHERE brand_id = ?");
+                $stmt->bind_param("i", $brand_id);
+            } elseif ($product_type_id) {
+                // Query สินค้าเฉพาะประเภทสินค้า
+                $stmt = $connection->prepare("SELECT * FROM product WHERE product_type_id = ?");
+                $stmt->bind_param("i", $product_type_id);
+            } else {
+                // Query สินค้าทั้งหมดในกรณีไม่ได้เลือกแบรนด์หรือประเภทสินค้า
+                $stmt = $connection->prepare("SELECT * FROM product");
+            }
+
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $rows = $result->num_rows;      
         ?>
 
-        <?php if ($rows > 0): ?> <!-- ตรวจสอบว่ามีแถวข้อมูล -->
-            <div class="row row-cols-3 row-cols-md-4 g-4">
-                <?php while ($product = $result->fetch_assoc()): ?>
-                    <div class="col">
-                        <div class="card">
-                            <?php if(!empty($product['img'])): ?>
-                                <img src="admin/upload/product/<?php echo $product['img']?>" class="card-img-top img-fluid" alt="Product image" style="height: 150px; object-fit: cover;">
-                            <?php else: ?>
-                                <img src="https://static.vecteezy.com/system/resources/thumbnails/022/059/000/small_2x/no-image-available-icon-vector.jpg" class="card-img-top img-fluid" alt="..." style="height: 200px; object-fit: cover;">
-                            <?php endif; ?>
-                            <div class="card-body d-flex flex-column">
-                                <h class="text-muted" style="font-size: 80%;"><?= str_pad($product['product_id'], 4, "0", STR_PAD_LEFT) ?></h>
-                                <p class="card-title text-truncate-3" style="font-size: 95%;" title="<?= $product['product_name'] ?>"><?= $product['product_name'] ?></p>
-                                <p class="card-text text-danger fw-bold ">฿ <?= number_format($product['price']) ?></p>
-                                <div class="row d-flex justify-content-center align-items-center">
-                                    <div class="col-6">
-                                        <div class="d-flex align-items-center justify-content-between ">
-                                            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="decrement(<?= $product['product_id'] ?>)">-</button>
-                                            <input type="number" id="quantity-<?= $product['product_id'] ?>" class="form-control text-center no-spinner" value="0" min="0" style="width: 50px;">
-                                            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="increment(<?= $product['product_id'] ?>)">+</button>
+        <div id="product-list">
+            <div class="row">
+                <div class="col-6">
+                <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item "><a href="?page=home" class="text-decoration-none text-dark">หน้าหลัก</a></li>
+                        <?php if ($brand_name): ?>
+                            <li class="breadcrumb-item active" aria-current="page"><?= htmlspecialchars($brand_name) ?></li>
+                        <?php endif; ?>
+                        <?php if ($product_type_name): ?>
+                            <li class="breadcrumb-item active" aria-current="page"><?= htmlspecialchars($product_type_name) ?></li>
+                        <?php endif; ?>
+                    </ol>
+                </nav>
+            </div>
+
+            <div class="col-5">
+                <div class="search-container mb-3">
+                    <input class="search form-control" placeholder="ค้นหา...">
+                </div>
+            </div>
+        
+
+            <?php if ($rows > 0): ?> <!-- ตรวจสอบว่ามีแถวข้อมูล -->
+                <div class="list row row-cols-3 row-cols-md-4 g-4">
+                    <?php while ($product = $result->fetch_assoc()): ?>
+                        <div class="col">
+                            <div class="card">
+                                <?php if(!empty($product['img'])): ?>
+                                    <img src="admin/upload/product/<?php echo $product['img']?>" class="card-img-top img-fluid" alt="Product image" style="height: 170px; object-fit: cover;">
+                                <?php else: ?>
+                                    <img src="https://static.vecteezy.com/system/resources/thumbnails/022/059/000/small_2x/no-image-available-icon-vector.jpg" class="card-img-top img-fluid" alt="..." style="height: 200px; object-fit: cover;">
+                                <?php endif; ?>
+                                <div class="card-body d-flex flex-column">
+                                    <h class="text-muted" style="font-size: 80%;"><?= str_pad($product['product_id'], 4, "0", STR_PAD_LEFT) ?></h>
+                                    <p class="card-title text-truncate-2" style="font-size: 95%;" title="<?= $product['product_name'] ?>"><?= $product['product_name'] ?></p>
+                                    <p class="card-text text-danger fw-bold ">฿ <?= number_format($product['price']) ?></p>
+                                    <div class="row d-flex justify-content-center align-items-center">
+                                        <div class="col-6">
+                                            <div class="d-flex align-items-center justify-content-between ">
+                                                <button type="button" class="btn btn-outline-secondary btn-sm" onclick="decrement(<?= $product['product_id'] ?>)">-</button>
+                                                <input type="number" id="quantity-<?= $product['product_id'] ?>" class="form-control text-center no-spinner" value="0" min="0" style="width: 50px;">
+                                                <button type="button" class="btn btn-outline-secondary btn-sm" onclick="increment(<?= $product['product_id'] ?>)">+</button>
+                                            </div>
+
+                                            <script>
+                                                function increment(productId) {
+                                                    const quantityInput = document.getElementById(`quantity-${productId}`);
+                                                    let currentValue = parseInt(quantityInput.value) || 0;
+                                                    quantityInput.value = currentValue + 1;
+                                                }
+
+                                                function decrement(productId) {
+                                                    const quantityInput = document.getElementById(`quantity-${productId}`);
+                                                    let currentValue = parseInt(quantityInput.value) || 0;
+                                                    if (currentValue > 0) {
+                                                        quantityInput.value = currentValue - 1;
+                                                    }
+                                                }
+                                            </script>
                                         </div>
 
-                                        <script>
-                                            function increment(productId) {
-                                                const quantityInput = document.getElementById(`quantity-${productId}`);
-                                                let currentValue = parseInt(quantityInput.value) || 0;
-                                                quantityInput.value = currentValue + 1;
-                                            }
+                                        <div class="col-6">
+                                            <a href="#?id=<?php echo $product['product_id']?>" class="btn btn-danger d-block">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
+                                                    <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z"/>
+                                                    <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                                                </svg>
+                                            </a>
+                                        </div>
 
-                                            function decrement(productId) {
-                                                const quantityInput = document.getElementById(`quantity-${productId}`);
-                                                let currentValue = parseInt(quantityInput.value) || 0;
-                                                if (currentValue > 0) {
-                                                    quantityInput.value = currentValue - 1;
-                                                }
-                                            }
-                                        </script>
                                     </div>
-
-                                    <div class="col-6">
-                                        <a href="#?id=<?php echo $product['product_id']?>" class="btn btn-danger d-block">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
-                                                <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z"/>
-                                                <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
-                                            </svg>
-                                        </a>
-                                    </div>
-
                                 </div>
                             </div>
-                        </div>
-                    </div> 
-                <?php endwhile; ?>
+                        </div> 
+                    <?php endwhile; ?>
+                </div>
+                <?php else: ?>
+                    <p class="text-center text-muted">ไม่มีสินค้าตามประเภทที่เลือก</p>
+            <?php endif; ?>
+
+            <div class="pagination-container mt-3">
+                <ul class="pagination"></ul>
             </div>
-            <?php else: ?>
-                <p class="text-center text-muted">ไม่มีสินค้าตามประเภทที่เลือก</p>
-        <?php endif; ?>
+        </div>
     </div>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const options = {
+            valueNames: ["product-id", "product-name", "product-price"],
+            page: 25, // จำนวนสินค้าต่อหน้า
+            pagination: true,
+        };
+
+        const productList = new List("product-list", options);
+    });
+    </script>
 </body>

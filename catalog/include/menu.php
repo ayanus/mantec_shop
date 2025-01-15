@@ -24,14 +24,13 @@
                 while($row=mysqli_fetch_array($hand)){
             ?>
               <li>
-                <a class="dropdown-item" href="?page=product&type=<?= htmlspecialchars($row['type_name']); ?>">
+                <a class="dropdown-item" href="?page=product&product_type_id=<?= htmlspecialchars($row['type_id']); ?>">
                   <?= htmlspecialchars($row['type_name']); ?>
                 </a>
               </li>               
             <?php 
                 } 
             ?>
-            
           </ul>
         </li>
 

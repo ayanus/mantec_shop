@@ -227,7 +227,7 @@
             <h1 class="text-center">PRODUCT</h1>
 
             <?php
-                $query =  mysqli_query($connection, "SELECT product.img, product_type.type_name  FROM product 
+                $query =  mysqli_query($connection, "SELECT product.img, product_type.type_name, product.product_type_id FROM product 
                                                     JOIN product_type ON product.product_type_id = product_type.type_id
                                                     WHERE product_id IN (SELECT MIN(product_id)FROM product GROUP BY product_type_id)
                                                     AND product_type.type_name != 'อะไหล่ส่วนอื่น'");
@@ -236,16 +236,14 @@
             ?>
             <div class="container container-custom pt-4">
                 <?php if ($rows > 0): ?> <!-- ตรวจสอบว่ามีแถวข้อมูล -->
-                    <div class="row row-cols-1 row-cols-md-4 g-4">
+                    <div class="row row-cols-2 row-cols-md-4 g-4">
                         <?php while($product = mysqli_fetch_assoc($query)): ?> <!-- ใช้ $rows ที่กำหนดจาก query -->
                             <div class="col">
                                 <div class="card ">
-                                    <?php if(!empty($product['img'])): ?>
+                                    <a href="?page=product&product_type_id=<?= $product['product_type_id'] ?>">
                                         <img src="admin/upload/product/<?php echo $product['img']?>" class="card-img-top" alt="Product image">
-                                    <?php else: ?>
-                                        <img src="https://static.vecteezy.com/system/resources/thumbnails/022/059/000/small_2x/no-image-available-icon-vector.jpg" class="card-img-top" alt="...">
-                                    <?php endif; ?>
-                                    <div class="card-body">
+                                    </a>
+                                <div class="card-body">
                                         <h5 class="card-title fs-6 text-center"><?= $product['type_name'] ?></h5>
                                         <!-- <p class="card-text text-muted"><?= $product['detail'] ?></p> -->
                                     </div>
@@ -273,7 +271,7 @@
                         <?php while($brand = mysqli_fetch_assoc($query)): ?> <!-- ใช้ $rows ที่กำหนดจาก query -->
                             <div class="col">
                                 <div class="brand-box">
-                                    <a href="?page=product&brand=<?php echo $brand['brand_name']?>">                                    
+                                    <a href="?page=product&brand_id=<?php echo $brand['brand_id']?>">                                    
                                         <img src="admin/upload/brand/<?php echo $brand['brand_img']?>" class="img-fluid" alt="brand image">
                                     </a>
                                 </div>
