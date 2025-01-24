@@ -14,9 +14,9 @@
           <a class="nav-link dropdown-toggle text-dark <?php echo isset($_GET['page']) && ($_GET['page']) == 'product' ? 'active' : '' ?>" href="?page=product" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           หมวดสินค้า</a>
           <ul class="dropdown-menu">
-            <li>
+            <!-- <li>
               <a class="dropdown-item" href="?page=product&type=all">All Product</a>
-            </li>
+            </li> -->
 
             <?php
                 $sql="SELECT * FROM product_type ORDER BY type_id";

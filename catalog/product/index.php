@@ -96,9 +96,16 @@
         height: calc(1.5em * 2);
     }
 
+    .pagination {
+    padding: 0;
+    list-style: none;
+    display: flex;
+    gap: 5px;
+    }
+
 </style>
 
-<body>
+<body class="hidden">
     <div class="img-head">
         <div class="text-head">
             <h5>PRODUCT</h5>
@@ -161,24 +168,25 @@
         ?>
 
         <div id="product-list">
-            <div class="row">
-                <div class="col-6">
-                <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item "><a href="?page=home" class="text-decoration-none text-dark">หน้าหลัก</a></li>
-                        <?php if ($brand_name): ?>
-                            <li class="breadcrumb-item active" aria-current="page"><?= htmlspecialchars($brand_name) ?></li>
-                        <?php endif; ?>
-                        <?php if ($product_type_name): ?>
-                            <li class="breadcrumb-item active" aria-current="page"><?= htmlspecialchars($product_type_name) ?></li>
-                        <?php endif; ?>
-                    </ol>
-                </nav>
-            </div>
+            <div class="row mb-4">
+                <div class="col-6 d-flex flex-column justify-content-center ">
+                    <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item "><a href="?page=home" class="text-decoration-none text-dark">หน้าหลัก</a></li>
+                            <?php if ($brand_name): ?>
+                                <li class="breadcrumb-item active" aria-current="page"><?= htmlspecialchars($brand_name) ?></li>
+                            <?php endif; ?>
+                            <?php if ($product_type_name): ?>
+                                <li class="breadcrumb-item active" aria-current="page"><?= htmlspecialchars($product_type_name) ?></li>
+                            <?php endif; ?>
+                        </ol>
+                    </nav>
+                </div>
 
-            <div class="col-5">
-                <div class="search-container mb-3">
-                    <input class="search form-control" placeholder="ค้นหา...">
+                <div class="col-4 ms-auto justify-content-end align-items-end">
+                    <div class="search-container">
+                        <input class="search form-control" placeholder="ค้นหา...">
+                    </div>
                 </div>
             </div>
         
@@ -194,9 +202,9 @@
                                     <img src="https://static.vecteezy.com/system/resources/thumbnails/022/059/000/small_2x/no-image-available-icon-vector.jpg" class="card-img-top img-fluid" alt="..." style="height: 200px; object-fit: cover;">
                                 <?php endif; ?>
                                 <div class="card-body d-flex flex-column">
-                                    <h class="text-muted" style="font-size: 80%;"><?= str_pad($product['product_id'], 4, "0", STR_PAD_LEFT) ?></h>
-                                    <p class="card-title text-truncate-2" style="font-size: 95%;" title="<?= $product['product_name'] ?>"><?= $product['product_name'] ?></p>
-                                    <p class="card-text text-danger fw-bold ">฿ <?= number_format($product['price']) ?></p>
+                                    <h class="text-muted product-id" style="font-size: 80%;"><?= str_pad($product['product_id'], 4, "0", STR_PAD_LEFT) ?></h>
+                                    <p class="card-title text-truncate-2 product-name" style="font-size: 95%;" title="<?= $product['product_name'] ?>"><?= $product['product_name'] ?></p>
+                                    <p class="card-text text-danger fw-bold product-price">฿ <?= number_format($product['price']) ?></p>
                                     <div class="row d-flex justify-content-center align-items-center">
                                         <div class="col-6">
                                             <div class="d-flex align-items-center justify-content-between ">
@@ -223,7 +231,7 @@
                                         </div>
 
                                         <div class="col-6">
-                                            <a href="#?id=<?php echo $product['product_id']?>" class="btn btn-danger d-block">
+                                            <a href="cart/add-cart.php?id=<?php echo $product['product_id']?>" class="btn btn-danger d-block">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
                                                     <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z"/>
                                                     <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
@@ -241,21 +249,39 @@
                     <p class="text-center text-muted">ไม่มีสินค้าตามประเภทที่เลือก</p>
             <?php endif; ?>
 
-            <div class="pagination-container mt-3">
+            <div class="pagination-container d-flex justify-content-center align-item-center mt-5">
                 <ul class="pagination"></ul>
             </div>
+            
         </div>
     </div>
 
     <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const options = {
-            valueNames: ["product-id", "product-name", "product-price"],
-            page: 25, // จำนวนสินค้าต่อหน้า
-            pagination: true,
-        };
+        document.addEventListener("DOMContentLoaded", function () {
+    const options = {
+        valueNames: ["product-id", "product-name", "product-price"],
+        page: 20, // จำนวนสินค้าต่อหน้า
+        pagination: true,
+    };
 
-        const productList = new List("product-list", options);
+    // สร้างรายการสินค้าและ pagination ด้วย List.js
+    const productList = new List("product-list", options);
+
+    // เพิ่ม event สำหรับ active state ของ pagination
+    productList.on("updated", function () {
+        const paginationItems = document.querySelectorAll(".pagination .page-item");
+        paginationItems.forEach((item) => {
+            item.classList.remove("active");
+        });
+
+        const activePage = document.querySelector(".pagination .active");
+        if (activePage) {
+            activePage.classList.add("active");
+        }
     });
+
+});
+
     </script>
+    
 </body>

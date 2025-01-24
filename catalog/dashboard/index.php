@@ -171,20 +171,20 @@
     }
 
     .brand-box img {
-        width: 80%; 
-        height: 80%; 
+        width: 70%; 
+        height: 70%; 
         object-fit: contain;
         transition: transform 0.3s ease;
     }
 
-    .brand-box:hover {
+    /* .brand-box:hover {
         transform: translateY(-10px); 
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-    }
+    } */
 
-    .brand-box:hover img {
+    /* .brand-box:hover img {
         transform: scale(1.05);
-    }
+    } */
 </style>
 
 <body>
