@@ -57,7 +57,7 @@ if (isset($_POST) && !empty($_POST)) {
             echo $alert;
             exit();
         } else {
-
+            $brand_img = $filename;
         }
     }
 
@@ -66,7 +66,7 @@ if (isset($_POST) && !empty($_POST)) {
     if (mysqli_query($connection, $sql)) {
         $alert = '<script type="text/javascript">';
         $alert .= 'alert("เพิ่มข้อมูลประเภทสินค้าสำเร็จ");';
-        // $alert .= 'window.location.href = "?page='.$_GET['page'].'";';
+        $alert .= 'window.location.href = "?page='.$_GET['page'].'";';
         $alert .= '</script>';
         echo $alert;
         exit();

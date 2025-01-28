@@ -248,40 +248,19 @@
                 <?php else: ?>
                     <p class="text-center text-muted">ไม่มีสินค้าตามประเภทที่เลือก</p>
             <?php endif; ?>
-
-            <div class="pagination-container d-flex justify-content-center align-item-center mt-5">
-                <ul class="pagination"></ul>
-            </div>
             
         </div>
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function () {
     const options = {
         valueNames: ["product-id", "product-name", "product-price"],
-        page: 20, // จำนวนสินค้าต่อหน้า
-        pagination: true,
     };
 
     // สร้างรายการสินค้าและ pagination ด้วย List.js
     const productList = new List("product-list", options);
-
-    // เพิ่ม event สำหรับ active state ของ pagination
-    productList.on("updated", function () {
-        const paginationItems = document.querySelectorAll(".pagination .page-item");
-        paginationItems.forEach((item) => {
-            item.classList.remove("active");
-        });
-
-        const activePage = document.querySelector(".pagination .active");
-        if (activePage) {
-            activePage.classList.add("active");
-        }
     });
-
-});
-
     </script>
     
 </body>
