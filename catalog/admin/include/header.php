@@ -1,28 +1,36 @@
+<style>
+  .link-hover:hover {
+    color: black !important;;
+  }
+
+  .logout-hover:hover {
+    color: red !important;;
+  }
+
+  
+</style>
+
 <header class="app-header fixed-top">
     <div class="app-header-inner">
         <div class="container-fluid py-2">
             <div class="app-header-content">
                 <div class="row justify-content-between align-items-center">
-
-                    <div class="col-auto">
+                    <div class="col-auto"> 
                     </div>
     
-                    <div class="app-utilities col-auto me-4">
-                        <div class="app-utility-item app-user-dropdown dropdown">
-                            <a class="dropdown-toggle" id="user-dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><img src="assets/images/user.png" alt="user profile"></a>
-                            <ul class="dropdown-menu" aria-labelledby="user-dropdown-toggle">
-                                <li>
-                                    <a class="dropdown-item <?php echo isset($_GET['page']) && ($_GET['page']) == 'about' ? 'active' : '' ?>" href="?page=about">About Me</a>
-                                </li>
-                                <li><a class="dropdown-item" href="../index.php">User Mode</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="../../../mantec_website/catalog/login.php">Log Out</a></li>
-                            </ul>
+                    <div class="app-utilities col-auto me-5">
+                        <div class="row justify-content-between align-items-center">
+                            <div class="col-auto fw-bold d-flex align-items-center">
+                                <a href="../index.php" class="text-secondary link-hover">USER MODE</a>
+                            </div>
+                            <div class="col-auto fw-bold d-flex align-items-center">
+                                <p class="separator mb-0">|</p>
+                            </div>
+                            <div class="col-auto fw-bold d-flex align-items-center">
+                                <a href="../logout.php" class="text-secondary logout-hover">LOG OUT</a>
+                            </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
