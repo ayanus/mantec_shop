@@ -40,7 +40,7 @@ if (isset($_POST['login_user'])) {
 
             // ตรวจสอบระดับผู้ใช้
             if ($row['role'] == 'a') {
-                header("Location: admin/index.php");
+                header("Location: admin/index.php?page=admin");
                 // $_SESSION['admin'] = include('header/header_admin.php');
             } elseif ($row['role'] == 'c') {
                 header("Location: index.php");

@@ -1,5 +1,5 @@
 <?php
-$sql = "SELECT product.product_id, product.product_name, product.img, product.price , product_type.type_name, brand.brand_name
+$sql = "SELECT product.product_id, product.product_name, product.img, product.price , product.detail , product_type.type_name, brand.brand_name
         FROM product
         JOIN product_type ON product.product_type_id = product_type.type_id
         JOIN brand ON product.brand_id = brand.brand_id
@@ -30,6 +30,7 @@ $query = mysqli_query($connection, $sql);
                             <th scope="col" class="text-center">ชื่อสินค้า</th>
                             <th scope="col" class="text-center">แบรนด์</th>
                             <th scope="col" class="text-center">ประเภทสินค้า</th>
+                            <th scope="col" class="text-center">รายละเอียด</th>
                             <th scope="col" class="text-center">ราคา</th>
                             <th scope="col" class="text-center">เมนู</th>
                         </tr>
@@ -47,6 +48,7 @@ $query = mysqli_query($connection, $sql);
                                 <td class="align-middle w-25"><?= $data['product_name'] ?></td>
                                 <td class="align-middle"><?= $data['brand_name'] ?></td>
                                 <td class="align-middle"><?= $data['type_name'] ?></td>
+                                <td class="align-middle text-start"><?= $data['detail'] ?></td>
                                 <td class="align-middle text-center"><?= number_format($data['price']) ?></td>
                                
                                 <td class="align-middle">

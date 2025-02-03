@@ -106,16 +106,6 @@ if (isset($_POST) && !empty($_POST)) {
             <div class="app-card-body">
 
                 <form action="" method="post" enctype="multipart/form-data">
-                    <div class="mb-3">
-                        <label class="form-label">รูปภาพ</label>
-                        <div class="mb-3">
-                            <img id="preview" class="rounded" width="150" height="150">
-                        </div>
-                        <div class="input-group mb-3">
-                            <label class="input-group-text" for="image">เลือกรูปภาพ</label>
-                            <input type="file" class="form-control" name="image" id="image">
-                        </div>
-                    </div>
                     <div class="mb-3 col-lg-6">
                         <label class="form-label">ชื่อผู้ใช้</label>
                         <input type="text" class="form-control" name="user" placeholder="ชื่อผู้ใช้ : admin" required>
