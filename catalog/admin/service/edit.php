@@ -1,35 +1,42 @@
 <?php
 if (isset($_GET['service_id']) && !empty($_GET['service_id'])) {
-    $service_id = $_GET['service_id']; // แปลงเป็นตัวเลขเพื่อความปลอดภัย
+    $service_id = $_GET['service_id'];
     $stmt = $connection->prepare("SELECT * FROM service WHERE service_id = ?");
     $stmt->bind_param("i", $service_id);
     $stmt->execute();
     $result = $stmt->get_result()->fetch_assoc();
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     $service_name = $_POST['service_name'];
+    $detail = $_POST['detail']; 
     $img = $result['img'];
 
-        if (!empty($_FILES['img']['name'])) {
-            $extension = ["jpeg", "jpg", "png", "gif"];
-            $target = 'upload/service/';
-            $file_extension = pathinfo($_FILES['img']['name'], PATHINFO_EXTENSION);
-            $filename = uniqid() . '.' . $file_extension;
+    // ตรวจสอบการอัปโหลดไฟล์
+    if (isset($_FILES['img']['name']) && !empty($_FILES['img']['name'])) {
+        $extension = array("jpeg", "jpg", "png", "gif");
+        $target = 'upload/service/';
+        $filename = $_FILES['img']['name'];
+        $filetmp = $_FILES['img']['tmp_name'];
+        $ext = pathinfo($filename, PATHINFO_EXTENSION);
 
-            if (in_array($file_extension, $extension)) {
-                if (move_uploaded_file($_FILES['img']['tmp_name'], $target . $filename)) {
-                    $img = $filename;
-                } else {
-                    echo "<script>alert('ไม่สามารถอัปโหลดไฟล์ได้');</script>";
-                    exit();
-                }
+        if (in_array($ext, $extension)) {
+            // ตรวจสอบชื่อไฟล์ว่าใช้งานได้หรือไม่
+            if (!file_exists($target . $filename)) {
+                move_uploaded_file($filetmp, $target . $filename);
             } else {
-                echo "<script>alert('ประเภทไฟล์ไม่ถูกต้อง');</script>";
-                exit();
+                $filename = time() . $filename;
+                move_uploaded_file($filetmp, $target . $filename);
             }
+        } else {
+            echo "<script>alert('ประเภทไฟล์ไม่ถูกต้อง');</script>";
+            exit();
         }
+    } else {
+        $filename = $result['img']; // ใช้รูปเดิมหากไม่ได้อัปโหลดใหม่
+    }
 
+    // ตรวจสอบชื่อบริการซ้ำ
     if (!empty($service_name)) {
         $stmt = $connection->prepare("SELECT * FROM service WHERE service_name = ? AND service_id != ?");
         $stmt->bind_param("si", $service_name, $service_id);
@@ -40,8 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "<script>alert('ชื่อประเภทสินค้าซ้ำ กรุณากรอกใหม่อีกครั้ง');</script>";
             exit();
         } else {
-            $stmt = $connection->prepare("UPDATE service SET service_name = ?, img = ? WHERE service_id = ?");
-            $stmt->bind_param("ssi", $service_name, $img, $service_id);
+            $stmt = $connection->prepare("UPDATE service SET service_name = ?, img = ?, detail = ? WHERE service_id = ?");
+            $stmt->bind_param("sssi", $service_name, $filename, $detail, $service_id);
 
             if ($stmt->execute()) {
                 echo "<script>alert('แก้ไขข้อมูลประเภทสินค้าสำเร็จ'); window.location.href = '?page={$_GET['page']}';</script>";
@@ -52,6 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
 
 <script type="text/javascript">
 
@@ -90,6 +98,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <label class="form-label">ชื่อการบริการ</label>
                         <input type="text" class="form-control" name="service_name" placeholder="ชื่อการบริการ"
                             value="<?= $result['service_name'] ?>" autocomplete="off" required>                    
+                    </div>
+                    <div class="mb-3 col-lg-6">
+                    <label class="form-label">รายละเอียดงาน</label>
+                        <textarea class="form-control" name="detail" style="height: 100px;"><?= $result['detail'] ?></textarea>                
                     </div>
                     
                     <button type="submit" class="btn app-btn-primary">บันทึก</button>

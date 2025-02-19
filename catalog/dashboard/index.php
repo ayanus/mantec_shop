@@ -177,14 +177,20 @@
         transition: transform 0.3s ease;
     }
 
-    /* .brand-box:hover {
-        transform: translateY(-10px); 
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-    } */
+    .manual {
+        background-color: #CFCFCF;
+    }
 
-    /* .brand-box:hover img {
-        transform: scale(1.05);
-    } */
+    .order-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* แบ่งเป็น 2 คอลัมน์ */
+        gap: 15px; /* ระยะห่างระหว่างรายการ */
+        list-style-position: inside; /* ให้เลขอยู่ด้านใน */
+        padding: 0; /* ลบ padding */
+        text-align: left;
+        max-width: 400px; /* ปรับขนาดให้พอดี */
+    }
+
 </style>
 
 <body>
@@ -283,10 +289,64 @@
                     <?php endif; ?>
             </div>
         </div>
+    </div>
 
-        <div class="manual">
-            
+    <div class="manual">
+        <div class="container py-4">
+            <div class="row">
+                <div class="col d-flex flex-column align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-fill" viewBox="0 0 16 16">
+                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                    </svg>
+                    <span class="fw-bold fs-6 pt-2">วิธีการสั่งซื้อ</span>
+                    <ol class="order-list pt-4" style="color: #363636;">
+                        <li>รับชมตัวอย่างสินค้า</li>
+                        <li>เลือกสินค้าที่ต้องการ</li>
+                        <li>เพิ่มสินค้าลงในตะกร้า</li>
+                        <li>ตรวจสอบสินค้า</li>
+                        <li>ยืนยันการสั่งซื้อสินค้า</li>
+                        <li>ติดต่อผู้ขายผ่าน Line</li>
+                    </ol>
+                </div>
+
+                <div class="col d-flex flex-column align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-wrench-adjustable" viewBox="0 0 16 16">
+                        <path d="M16 4.5a4.5 4.5 0 0 1-1.703 3.526L13 5l2.959-1.11q.04.3.041.61"/>
+                        <path d="M11.5 9c.653 0 1.273-.139 1.833-.39L12 5.5 11 3l3.826-1.53A4.5 4.5 0 0 0 7.29 6.092l-6.116 5.096a2.583 2.583 0 1 0 3.638 3.638L9.908 8.71A4.5 4.5 0 0 0 11.5 9m-1.292-4.361-.596.893.809-.27a.25.25 0 0 1 .287.377l-.596.893.809-.27.158.475-1.5.5a.25.25 0 0 1-.287-.376l.596-.893-.809.27a.25.25 0 0 1-.287-.377l.596-.893-.809.27-.158-.475 1.5-.5a.25.25 0 0 1 .287.376M3 14a1 1 0 1 1 0-2 1 1 0 0 1 0 2"/>
+                    </svg>
+                    <span class="fw-bold fs-6 pt-2">วิธีใช้บริการ</span>
+                    <ol class="d-flex flex-column gap-3 pt-4 mb-3" style="color: #363636;">
+                        <li>ชมบริการ / ประสบการณ์การทำงาน</li>
+                        <li>ติดต่อผู้ให่บริการผ่าน Line</li>
+                    </ol>
+                </div>
+
+                <div class="col d-flex flex-column align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-fill" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
+                    </svg>
+                    <span class="fw-bold fs-6 pt-2">เวลาทำการ</span>
+                    <div class="mt-3">
+                        <table class="table table-borderless bg-transparent">
+                            <tbody>
+                                <tr>
+                                    <td class="text-center bg-transparent" style="color: #363636;">วันจันทร์-วันศุกร์</td>
+                                    <td class="bg-transparent" style="color: #363636;">เวลา 08.30 - 17.00 น.</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center bg-transparent" style="color: #363636;">วันเสาร์</td>
+                                    <td class="bg-transparent" style="color: #363636;">เวลา 09.00 - 17.00 น.</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center bg-transparent" style="color: #363636;">วันอาทิตย์</td>
+                                    <td class="bg-transparent" style="color: #363636;">ปิดทำการ</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+            </div>
         </div>
-
     </div>
 </body>

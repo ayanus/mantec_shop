@@ -22,6 +22,7 @@ $query = mysqli_query($connection, $sql);
                             <th scope="col" class="text-center">ลำดับ</th>
                             <th scope="col" class="text-center">รูปภาพ</th>
                             <th scope="col" class="text-center">การบริการ</th>
+                            <th scope="col" class="text-center">รายละเอียดงาน</th>
                             <th scope="col" class="text-center">เมนู</th>
                         </tr>
                     </thead>
@@ -35,9 +36,10 @@ $query = mysqli_query($connection, $sql);
                                 <td class="align-middle">
                                     <img src="upload/service/<?= $data['img'] ?>"class="rounded" width="75" height="75">
                                 </td>
-                                <td class="align-middle" name="service_name"><?= $data['service_name'] ?></td>
+                                <td class="align-middle w-25" name="service_name"><?= $data['service_name'] ?></td>
+                                <td class="align-middle text-start" name="detail"><?= $data['detail'] ?></td>
                             
-                                <td class="align-middle">
+                                <td class="align-middle w-25">
                                     <a href="?page=<?= $_GET['page'] ?>&function=update&service_id=<?= $data['service_id'] ?>"
                                         class="btn btn-sm btn-warning">แก้ไข</a>
                                     <a href="?page=<?= $_GET['page'] ?>&function=delete&service_id=<?= $data['service_id'] ?>"

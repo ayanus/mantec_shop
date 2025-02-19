@@ -105,7 +105,7 @@
 
         <div class="row d-flex justify-content-center align-items-center py-5">
             <div class="img-body col-6 d-flex justify-content-center align-items-center">
-                <img src="https://akamai.sscdn.co/tb/letras-blog/wp-content/uploads/2023/07/97e9bc9-stray-kids-miembros.png" class="img-thumbnail" alt="รอ">
+                <img src="https://scontent.fhdy3-1.fna.fbcdn.net/v/t39.30808-6/465719669_528343313369687_1349349087743231948_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeFPQnKZ1eRUccgOE5DMdsfVOcqZkMiyXZw5ypmQyLJdnDnv_l6RxzbN1XtUylcFAPNyditaFt2aIPHab7o-1nIb&_nc_ohc=JB2yoSf_G1QQ7kNvgFVUAF9&_nc_oc=AdiipUsB7dB1fMcq85IW_5prdc32031U2cO1VZoxA_lNOWmHfRUfHKED1CrhFWIebSV82Hefd7pPE1nzakdejwlH&_nc_zt=23&_nc_ht=scontent.fhdy3-1.fna&_nc_gid=AztqVwPKDOoNFMte9HDEtDb&oh=00_AYCwv3ldQQmK4n8fKyrNIbZUIwtYTr7TosJX8GrGtY2i4w&oe=67B86649" class="img-thumbnail" alt="รอ">
             </div>
             <div class="col-6 d-flex flex-column justify-content-center text-center" style="max-width: 600px; margin: 0 auto;">
                 <div class="pb-4">
@@ -134,7 +134,7 @@
                 <!-- </div> -->
             </div>
             <div class="img-body col-6 d-flex justify-content-center align-items-center">
-                <img src="https://s359.kapook.com/pagebuilder/40127205-b1d6-4a3c-8d52-e682c626d369.jpg" class="img-thumbnail" alt="รอ">
+                <img src="https://scontent.fhdy3-1.fna.fbcdn.net/v/t39.30808-6/465719669_528343313369687_1349349087743231948_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeFPQnKZ1eRUccgOE5DMdsfVOcqZkMiyXZw5ypmQyLJdnDnv_l6RxzbN1XtUylcFAPNyditaFt2aIPHab7o-1nIb&_nc_ohc=JB2yoSf_G1QQ7kNvgFVUAF9&_nc_oc=AdiipUsB7dB1fMcq85IW_5prdc32031U2cO1VZoxA_lNOWmHfRUfHKED1CrhFWIebSV82Hefd7pPE1nzakdejwlH&_nc_zt=23&_nc_ht=scontent.fhdy3-1.fna&_nc_gid=AztqVwPKDOoNFMte9HDEtDb&oh=00_AYCwv3ldQQmK4n8fKyrNIbZUIwtYTr7TosJX8GrGtY2i4w&oe=67B86649" class="img-thumbnail" alt="รอ">
             </div>
         </div>
     </div>

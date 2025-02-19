@@ -85,6 +85,12 @@
 
     <div class="container container-custom my-5">
 
+        <div class="text-center px-5 py-5">
+            <span class="fw-bold fs-5">มุ่งเน้นให้ลูกค้าได้ใช้งานอุปกรณ์ไอที ที่มีประสิทธิภาพ พร้อมใช้งานตลอดเวลา<br>ในราคาที่เหมาะสมและคุ้มค่า รองรับยุคธุรกิจพอเพียง</span>
+        </div>
+
+        <hr>
+
         <?php
             $sql = "SELECT * FROM service;";
             $query = mysqli_query($connection, $sql);
@@ -98,31 +104,31 @@
                 foreach ($query as $data): 
                     $isReversed = $counter % 2 == 1; // สลับด้านเมื่อ $counter เป็นเลขคี่
                 ?>
-                    <div class="col-md-12 my-3">
-                        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col-md-12 my-5">
+                        <div class="row g-0 overflow-hidden flex-md-row mb-4 h-md-250 position-relative">
                             <?php if ($isReversed): ?>
                                 <!-- ซ้าย -->
                                 <div class="col-auto d-none d-lg-block">
-                                    <img src="admin/upload/service/<?php echo $data['img']; ?>" alt="Service Image" class="img-fluid w-100" style="height: 350px; object-fit: cover;">
+                                    <img src="admin/upload/service/<?php echo $data['img']; ?>" alt="Service Image" class="img-fluid w-100 rounded-5" style="height: 350px; object-fit: cover;">
                                 </div>
-                                <div class="col p-4 d-flex flex-column position-static text-end">
-                                    <h3 class="mb-0"><?php echo $data['service_name']; ?></h3>
-                                    <p class="card-text mb-auto"><?php echo $data['detail']; ?></p>
-                                    <div class="btn">
-                                        <a href="#" class="btn btn-primary">Contact us</a>
+                                <div class="col py-5 d-flex flex-column position-static text-end">
+                                    <h3 class="text-center"><?php echo $data['service_name']; ?></h3>
+                                    <p class="card-text mb-auto text-center px-5 d-flex align-items-center justify-content-center" style="height: 100%;"><?php echo $data['detail']; ?></p>
+                                    <div class="d-flex justify-content-end me-md-5">
+                                        <a href="#" class="btn btn-danger">Contact us</a>
                                     </div>
                                 </div>
                             <?php else: ?>
                                 <!-- ขวา -->
-                                <div class="col p-4 d-flex flex-column position-static">
-                                    <h3 class="mb-0"><?php echo $data['service_name']; ?></h3>
-                                    <p class="card-text mb-auto"><?php echo $data['detail']; ?></p>
-                                    <div class="btn">
-                                        <a href="#" class="btn btn-primary">Contact us</a>
+                                <div class="col py-5 d-flex flex-column position-static">
+                                    <h3 class="text-center"><?php echo $data['service_name']; ?></h3>
+                                    <p class="card-text mb-auto text-center px-5 d-flex align-items-center justify-content-center" style="height: 100%;"><?php echo $data['detail']; ?></p>
+                                    <div class="d-flex justify-content-start ms-md-5">
+                                        <a href="#" class="btn btn-danger">Contact us</a>
                                     </div>
                                 </div>
                                 <div class="col-auto d-none d-lg-block">
-                                    <img src="admin/upload/service/<?php echo $data['img']; ?>" alt="Service Image" class="img-fluid w-100" style="height: 350px; object-fit: cover;">
+                                    <img src="admin/upload/service/<?php echo $data['img']; ?>" alt="Service Image" class="img-fluid w-100 rounded-5" style="height: 350px; object-fit: cover;">
                                 </div>
                             <?php endif; ?>
                         </div>

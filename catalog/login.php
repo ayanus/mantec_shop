@@ -23,20 +23,21 @@ session_start();
     }
     body {
         /* background-color: #A9DCF4; */
-        height: auto;
+        height: 100vh;
         display: flex;
-        /* align-items: center; */
+        align-items: center;
         justify-content: center;
         /* min-height: 100vh; */
-        overflow: auto;
-        margin-top: 30px;
-        margin-bottom: 30px;
+        overflow: hidden;
+        /* margin-top: 30px;
+        margin-bottom: 30px; */
     }
 
     .wrapper {
         width: 450px;
+        /* max-width: 450px; */
         padding: 30px;
-        margin: auto;
+        /* margin: auto; */
         background-color: #fff;
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -99,7 +100,7 @@ session_start();
                 <hr class="flex-grow-1">
             </div>
 
-            <div class="mb-3">
+            <!-- <div class="mb-3">
                 <a href="login_facebook.php" class="btn btn-outline-dark w-100">
                 <img src="image/facebook-icon.png" alt="facebook-icon" width="20" height="20">
                     เข้าสู่ระบบด้วย Facebook
@@ -111,7 +112,7 @@ session_start();
                 <img src="image/google-icon.png" alt="google-icon" width="25" height="25">
                     เข้าสู่ระบบด้วย Google
                 </a>
-            </div>
+            </div> -->
             <p class="mt-3 text-body-secondary text-center">ยังไม่มีบัญชีใช่หรือไม่ ? <a href="register.php">ลงทะเบียน</a></p>
         </div>
     </form>
