@@ -42,7 +42,7 @@
                 <a href="#" id="sidepanel-close" class="sidepanel-close d-xl-none">&times;</a>
                 
                 <div class="app-branding">
-                    <a class="app-logo" href="../admin/index.php"><img class="logo-icon me-2" src="assets/images/logo.png" alt="logo"><span class="logo-text">ระบบแคตล็อก</span></a>
+                    <a class="app-logo"><img class="logo-icon me-2" src="assets/images/logo.png" alt="logo"><span class="logo-text">ระบบแคตล็อก</span></a>
                     
                     </div>
                         <nav id="app-nav-main" class="app-nav app-nav-main flex-grow-1">

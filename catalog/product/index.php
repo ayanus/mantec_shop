@@ -70,6 +70,18 @@
         }
     }
 
+    @media (max-width: 576px) {
+        .card-title {
+            font-size: 1rem;
+        }
+        .card-text {
+            font-size: 0.875rem;
+        }
+        .btn {
+            font-size: 0.875rem;
+        }
+    }
+
     .container-custom {
         padding-left: 100px;
         padding-right: 100px;
@@ -101,6 +113,15 @@
     list-style: none;
     display: flex;
     gap: 5px;
+    }
+
+    /* .card {
+        position: relative;
+        cursor: pointer;
+    } */
+    .card img {
+        height: 200px;
+        object-fit: cover;
     }
 
 </style>
@@ -194,16 +215,20 @@
             <?php if ($rows > 0): ?> <!-- ตรวจสอบว่ามีแถวข้อมูล -->
                 <div class="list row row-cols-3 row-cols-md-4 g-4">
                     <?php while ($product = $result->fetch_assoc()): ?>
-                        <div class="col">
-                            <div class="card">
-                                <?php if(!empty($product['img'])): ?>
-                                    <img src="admin/upload/product/<?php echo $product['img']?>" class="card-img-top img-fluid" alt="Product image" style="height: 170px; object-fit: cover;">
-                                <?php else: ?>
-                                    <img src="https://static.vecteezy.com/system/resources/thumbnails/022/059/000/small_2x/no-image-available-icon-vector.jpg" class="card-img-top img-fluid" alt="..." style="height: 200px; object-fit: cover;">
-                                <?php endif; ?>
+                        <div class="col-lg-3 col-md-4 col-sm-6">                            
+                            <div class="card h-100">
+                                <a href="index.php?page=detail&product_id=<?= $product['product_id'] ?>&brand_id=<?= $product['brand_id'] ?>" class="text-decoration-none">
+                                    <?php if(!empty($product['img'])): ?>
+                                        <img src="admin/upload/product/<?php echo $product['img']?>" class="card-img-top img-fluid" alt="Product image" style="height: 200px; object-fit: cover;">
+                                    <?php else: ?>
+                                        <img src="https://static.vecteezy.com/system/resources/thumbnails/022/059/000/small_2x/no-image-available-icon-vector.jpg" class="card-img-top img-fluid" alt="..." style="height: 200px; object-fit: cover;">
+                                    <?php endif; ?>
+                                </a>
                                 <div class="card-body d-flex flex-column">
-                                    <h class="text-muted product-id" style="font-size: 80%;"><?= str_pad($product['product_id'], 4, "0", STR_PAD_LEFT) ?></h>
-                                    <p class="card-title text-truncate-2 product-name" style="font-size: 95%;" title="<?= $product['product_name'] ?>"><?= $product['product_name'] ?></p>
+                                    <a href="index.php?page=detail&product_id=<?= $product['product_id'] ?>" class="text-decoration-none text-dark">
+                                        <h class="text-muted product-id" style="font-size: 80%;"><?= str_pad($product['product_id'], 4, "0", STR_PAD_LEFT) ?></h>
+                                        <p class="card-title text-truncate-2 product-name" style="font-size: 95%;" title="<?= $product['product_name'] ?>"><?= $product['product_name'] ?></p>
+                                    </a>
                                     <p class="card-text text-danger fw-bold product-price">฿ <?= number_format($product['price']) ?></p>
                                     <div class="row d-flex justify-content-center align-items-center">
                                         <div class="col-6">
@@ -236,6 +261,7 @@
                                                     <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z"/>
                                                     <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
                                                 </svg>
+                                                <!-- <span>เพิ่มตะกร้าสินค้า</ห> -->
                                             </a>
                                         </div>
 
